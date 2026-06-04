@@ -79,6 +79,7 @@ public class Wyciag extends Krawedz {
 
         for (SportowiecLokalny sportowiec : odjezdzajacySportowcy) {
             dziennik.dodajWpisZeSportowcem(moment, sportowiec, String.format("rozpoczął wjazd %s", toString()));
+            sportowiec.zglosPrzejazdWyciagiem(this);
         }
 
         Zdarzenie[] noweZdarzenia = new Zdarzenie[1 + odjezdzajacySportowcy.length];
