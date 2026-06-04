@@ -4,7 +4,7 @@ import czas.Moment;
 import dziennik.Dziennik;
 import osrodek.Wezel;
 import osrodek.krawedz.Krawedz;
-import sportowcy.Sportowiec;
+import sportowcy.SportowiecLokalny;
 
 public class DotarcieDoWezla extends Zdarzenie {
 
@@ -12,9 +12,9 @@ public class DotarcieDoWezla extends Zdarzenie {
 
     private final Wezel wezel;
 
-    private final Sportowiec sportowiec;
+    private final SportowiecLokalny sportowiec;
 
-    public DotarcieDoWezla(Moment moment, Krawedz poprzedniaKrawedz, Wezel wezel, Sportowiec sportowiec) {
+    public DotarcieDoWezla(Moment moment, Krawedz poprzedniaKrawedz, Wezel wezel, SportowiecLokalny sportowiec) {
         super(moment);
         this.poprzedniaKrawedz = poprzedniaKrawedz;
         this.wezel = wezel;
@@ -29,7 +29,7 @@ public class DotarcieDoWezla extends Zdarzenie {
         return wezel;
     }
 
-    public Sportowiec sportowiec() {
+    public SportowiecLokalny sportowiec() {
         return sportowiec;
     }
 

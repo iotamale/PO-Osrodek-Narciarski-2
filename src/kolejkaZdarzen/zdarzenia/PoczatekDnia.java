@@ -3,15 +3,15 @@ package kolejkaZdarzen.zdarzenia;
 import czas.Moment;
 import dziennik.Dziennik;
 import osrodek.Wezel;
-import sportowcy.Sportowiec;
+import sportowcy.SportowiecLokalny;
 
 public class PoczatekDnia extends Zdarzenie {
 
     private final Wezel wezel;
 
-    private final Sportowiec sportowiec;
+    private final SportowiecLokalny sportowiec;
 
-    public PoczatekDnia(Moment moment, Wezel wezel, Sportowiec sportowiec) {
+    public PoczatekDnia(Moment moment, Wezel wezel, SportowiecLokalny sportowiec) {
         super(moment);
         this.wezel = wezel;
         this.sportowiec = sportowiec;
@@ -21,7 +21,7 @@ public class PoczatekDnia extends Zdarzenie {
         return wezel;
     }
 
-    public Sportowiec sportowiec() {
+    public SportowiecLokalny sportowiec() {
         return sportowiec;
     }
 

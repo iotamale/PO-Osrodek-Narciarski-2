@@ -3,15 +3,15 @@ package kolejkaZdarzen.zdarzenia;
 import czas.Moment;
 import dziennik.Dziennik;
 import osrodek.krawedz.Trasa;
-import sportowcy.Sportowiec;
+import sportowcy.SportowiecLokalny;
 
 public class RozpoczecieZjazdu extends Zdarzenie {
 
     private final Trasa trasa;
 
-    private final Sportowiec sportowiec;
+    private final SportowiecLokalny sportowiec;
 
-    public RozpoczecieZjazdu(Moment moment, Trasa trasa, Sportowiec sportowiec) {
+    public RozpoczecieZjazdu(Moment moment, Trasa trasa, SportowiecLokalny sportowiec) {
         super(moment);
         this.trasa = trasa;
         this.sportowiec = sportowiec;
@@ -21,7 +21,7 @@ public class RozpoczecieZjazdu extends Zdarzenie {
         return trasa;
     }
 
-    public Sportowiec sportowiec() {
+    public SportowiecLokalny sportowiec() {
         return sportowiec;
     }
 

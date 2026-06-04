@@ -3,15 +3,15 @@ package kolejkaZdarzen.zdarzenia;
 import czas.Moment;
 import dziennik.Dziennik;
 import osrodek.krawedz.wyciag.Wyciag;
-import sportowcy.Sportowiec;
+import sportowcy.SportowiecLokalny;
 
 public class DolaczenieDoKolejki extends Zdarzenie {
 
     private final Wyciag wyciag;
 
-    private final Sportowiec sportowiec;
+    private final SportowiecLokalny sportowiec;
 
-    public DolaczenieDoKolejki(Moment moment, Wyciag wyciag, Sportowiec sportowiec) {
+    public DolaczenieDoKolejki(Moment moment, Wyciag wyciag, SportowiecLokalny sportowiec) {
         super(moment);
         this.wyciag = wyciag;
         this.sportowiec = sportowiec;
@@ -21,7 +21,7 @@ public class DolaczenieDoKolejki extends Zdarzenie {
         return wyciag;
     }
 
-    public Sportowiec sportowiec() {
+    public SportowiecLokalny sportowiec() {
         return sportowiec;
     }
 
