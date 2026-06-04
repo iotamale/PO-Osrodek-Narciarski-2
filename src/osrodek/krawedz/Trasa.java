@@ -59,7 +59,7 @@ public class Trasa extends Krawedz {
 
     @Override
     public String wypiszStatystyki() {
-        return String.format("%d zjazdów", liczbaZjazdow);
+        return String.format("Zjazdów: %d\nWyrównanie trasy na koniec dnia: %f", liczbaZjazdow, wyrownanieNawierzchni());
     }
 
     @Override

@@ -2,7 +2,7 @@ package czas;
 
 import java.util.Objects;
 
-public class Moment {
+public class Moment implements Comparable<Moment> {
 
     private static final int LICZBA_SEKUND_W_MINUCIE = 60;
 
@@ -53,6 +53,11 @@ public class Moment {
         return new Moment(godzina, minuta, sekundy);
     }
 
+    public int roznicaBezwzgledna(Moment inny) {
+        return Math.abs(this.sekundy() - inny.sekundy());
+    }
+
+    @Override
     public int compareTo(Moment moment) {
         if (godzina != moment.godzina) {
             return Integer.compare(godzina, moment.godzina);
