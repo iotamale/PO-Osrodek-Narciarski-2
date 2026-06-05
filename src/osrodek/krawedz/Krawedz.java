@@ -46,9 +46,14 @@ public abstract class Krawedz {
     public abstract Zdarzenie zdarzenieNastepnegoKroku(Moment moment, Sportowiec sportowiec);
 
     /**
-     * Generuje opis wykorzystywany do pierwszej mapki.
+     * Generuje opis wykorzystywany do pierwszej mapki (parametry).
      */
     public abstract ArrayList<String> generujOpisMapkaParametrow();
+
+    /**
+     * Generuje opis wykorzystywany do drugiej mapki (statystyki).
+     */
+    public abstract ArrayList<String> generujOpisMapkaStatystyk();
 
     @Override
     public String toString() {

@@ -129,13 +129,23 @@ public class Wyciag extends Krawedz {
     }
 
     /**
-     * Generuje opis wykorzystywany do pierwszej mapki.
+     * Generuje opis wykorzystywany do pierwszej mapki (parametry).
      */
     @Override
     public ArrayList<String> generujOpisMapkaParametrow() {
         ArrayList<String> linie = new ArrayList<>();
         linie.add(String.format("w%d: %d os. co %ds", id(), ladownosc, odstepMiedzyOdjazdami.sekundy()));
         linie.add(String.format("czas: %ds", dlugosc().sekundy()));
+        return linie;
+    }
+
+    /**
+     * Generuje opis wykorzystywany do drugiej mapki (statystyki).
+     */
+    @Override
+    public ArrayList<String> generujOpisMapkaStatystyk() {
+        ArrayList<String> linie = new ArrayList<>();
+        linie.add("placeholder!");
         return linie;
     }
 

@@ -68,7 +68,7 @@ public class HistoriaPrzejazdowSportowca {
 
     // TODO - oddzielna klasa?
     // TODO co gdy size = 0?
-    public String stringDlaKrawedzi(Krawedz krawedz) {
+    public ArrayList<String> stringDlaKrawedzi(Krawedz krawedz) {
         final StringBuilder sb = new StringBuilder();
         final SortedSet<Integer> set = pobierzPrzejazdy(krawedz);
         sb.append(krawedz);
@@ -84,7 +84,9 @@ public class HistoriaPrzejazdowSportowca {
             }
         }
 
-        return sb.toString();
+        final ArrayList<String> lista = new ArrayList<>();
+        lista.add(sb.toString());
+        return lista;
     }
 
 }

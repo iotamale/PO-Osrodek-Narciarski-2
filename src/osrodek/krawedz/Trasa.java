@@ -77,13 +77,24 @@ public class Trasa extends Krawedz {
 
 
     /**
-     * Generuje opis wykorzystywany do pierwszej mapki.
+     * Generuje opis wykorzystywany do pierwszej mapki (parametry).
      */
     @Override
     public ArrayList<String> generujOpisMapkaParametrow() {
         ArrayList<String> linie = new ArrayList<>();
         linie.add(String.format("t%d: poziom: %d, czas: %ds", id(), poziomTrudnosci, dlugosc().sekundy()));
         linie.add(String.format("odporność: %.2f, %.5f", bazowaAtrakcyjnosc, odpornoscNaNierownosci));
+        return linie;
+    }
+
+    /**
+     * Generuje opis wykorzystywany do drugiej mapki (statystyki).
+     */
+    @Override
+    public ArrayList<String> generujOpisMapkaStatystyk() {
+        ArrayList<String> linie = new ArrayList<>();
+        linie.add(String.format("t%d: śnieg: %.2f", id(), wyrownanieNawierzchni()));
+        linie.add(String.format("zjazdy: %d", liczbaZjazdow));
         return linie;
     }
 
