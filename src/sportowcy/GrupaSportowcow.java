@@ -4,13 +4,13 @@ import czas.Interwal;
 
 public class GrupaSportowcow {
 
-    private final Sportowiec schematSportowca;
+    private final SportowiecLokalny schematSportowca;
 
     private final int krotnosc;
 
     private final Interwal odstepMiedzySportowcami;
 
-    public Sportowiec schematSportowca() {
+    public SportowiecLokalny schematSportowca() {
         return schematSportowca;
     }
 
@@ -22,7 +22,7 @@ public class GrupaSportowcow {
         return odstepMiedzySportowcami;
     }
 
-    public GrupaSportowcow(Sportowiec schematSportowca, int krotnosc, Interwal odstepMiedzySportowcami) {
+    public GrupaSportowcow(SportowiecLokalny schematSportowca, int krotnosc, Interwal odstepMiedzySportowcami) {
         assert krotnosc > 0 : "Ilość sportowców w grupie musi być dodatnia";
 
         this.schematSportowca = schematSportowca;
@@ -30,8 +30,8 @@ public class GrupaSportowcow {
         this.odstepMiedzySportowcami = odstepMiedzySportowcami;
     }
 
-    public Sportowiec[] podajSportowcow() {
-        Sportowiec[] sportowcy = new Sportowiec[krotnosc];
+    public SportowiecLokalny[] podajSportowcow() {
+        SportowiecLokalny[] sportowcy = new SportowiecLokalny[krotnosc];
         sportowcy[0] = schematSportowca;
 
         for (int i = 1; i < krotnosc; i++) {

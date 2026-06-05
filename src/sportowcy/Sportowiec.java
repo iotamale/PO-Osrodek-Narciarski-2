@@ -2,16 +2,17 @@ package sportowcy;
 
 import czas.Interwal;
 import czas.Moment;
+import kolejkaZdarzen.zdarzenia.DolaczenieDoKolejki;
+import kolejkaZdarzen.zdarzenia.RozpoczecieZjazdu;
+import kolejkaZdarzen.zdarzenia.Zdarzenie;
 import losowosc.MaszynaLosujaca;
+import osrodek.Osrodek;
 import osrodek.Wezel;
 import osrodek.krawedz.Krawedz;
 import osrodek.krawedz.Trasa;
 import osrodek.krawedz.wyciag.Wyciag;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.SortedSet;
-import java.util.TreeSet;
+import java.util.*;
 
 public abstract class Sportowiec {
 
@@ -22,39 +23,39 @@ public abstract class Sportowiec {
     private final int id;
     private final int poziomZaawansowania; // {0, 1, ..., 10}
     private final double wspolczynnikSpontanicznosci; // [0, 1]
-    private final double wspolczynnikTrudnosci; // [0, 1]
-    private final double wspolczynnikNawierzchni; // [0, 1]
+    private final double wagaTrudnosci; // [0, 1]
+    private final double wagaNawierzchni; // [0, 1]
+    private final double wagaZnudzenia; // [0, 1]
     private final double wspolczynnikZnudzenia; // [0, 1]
     private final boolean sledzony;
     private final Wezel wezelStartowy;
     private final Moment momentStartu;
     private final MaszynaLosujaca maszynaLosujaca;
-    private final Map<Krawedz, SortedSet<Integer>> historiaPrzejazdow;
-    private int licznikPrzejazdowTrasa;
-    private int licznikPrzejazdowWyciag;
+    private final HistoriaPrzejazdowSportowca historiaPrzejazdow;
 
     public Sportowiec(int id,
                       int poziomZaawansowania,
                       double wspolczynnikSpontanicznosci,
-                      double wspolczynnikTrudnosci,
-                      double wspolczynnikNawierzchni,
+                      double wagaTrudnosci,
+                      double wagaNawierzchni,
                       boolean sledzony,
                       Wezel wezelStartowy,
                       Moment momentStartu,
                       MaszynaLosujaca maszynaLosujaca,
-                      double wspolczynnikZnudzenia) {
+                      double wspolczynnikZnudzenia, double wagaZnudzenia) {
         this.id = id;
         this.poziomZaawansowania = poziomZaawansowania;
         this.wspolczynnikSpontanicznosci = wspolczynnikSpontanicznosci;
-        this.wspolczynnikTrudnosci = wspolczynnikTrudnosci;
-        this.wspolczynnikNawierzchni = wspolczynnikNawierzchni;
+        this.wagaTrudnosci = wagaTrudnosci;
+        this.wagaNawierzchni = wagaNawierzchni;
         this.sledzony = sledzony;
         this.wezelStartowy = wezelStartowy;
         this.momentStartu = momentStartu;
         this.maszynaLosujaca = maszynaLosujaca;
         this.wspolczynnikZnudzenia = wspolczynnikZnudzenia;
-        licznikPrzejazdowTrasa = licznikPrzejazdowWyciag = 0;
-        historiaPrzejazdow = new HashMap<>();
+        this.wagaZnudzenia = wagaZnudzenia;
+
+        historiaPrzejazdow = new HistoriaPrzejazdowSportowca();
     }
 
     public int id() {
@@ -65,16 +66,24 @@ public abstract class Sportowiec {
         return poziomZaawansowania;
     }
 
-    public double wspolczynnikTrudnosci() {
-        return wspolczynnikTrudnosci;
+    public double wagaTrudnosci() {
+        return wagaTrudnosci;
     }
 
-    public double wspolczynnikNawierzchni() {
-        return wspolczynnikNawierzchni;
+    public double wagaNawierzchni() {
+        return wagaNawierzchni;
+    }
+
+    public double wspolczynnikSpontanicznosci() {
+        return wspolczynnikSpontanicznosci;
     }
 
     public boolean sledzony() {
         return sledzony;
+    }
+
+    protected MaszynaLosujaca maszynaLosujaca() {
+        return maszynaLosujaca;
     }
 
     public Wezel wezelStartowy() {
@@ -85,32 +94,28 @@ public abstract class Sportowiec {
         return momentStartu;
     }
 
-    public void zglosPrzejazdTrasa(Trasa trasa) {
-        licznikPrzejazdowTrasa++;
+    public abstract Zdarzenie nastepnyKrok(Moment moment, Wezel obecnyWezel, Osrodek osrodek);
 
-        historiaPrzejazdow.putIfAbsent(trasa, new TreeSet<>());
-        final SortedSet<Integer> set = historiaPrzejazdow.get(trasa);
-        assert set != null : "Blad pobrania wartosci z setu.";
-
-        set.add(licznikPrzejazdowTrasa);
+    public HistoriaPrzejazdowSportowca historiaPrzejazdow() {
+        return historiaPrzejazdow;
     }
 
-    public void zglosPrzejazdWyciagiem(Wyciag wyciag) {
-        licznikPrzejazdowWyciag++;
-
-        historiaPrzejazdow.putIfAbsent(wyciag, new TreeSet<>());
-        final SortedSet<Integer> set = historiaPrzejazdow.get(wyciag);
-        assert set != null : "Blad pobrania wartosci z setu.";
-
-        set.add(licznikPrzejazdowWyciag);
+    public void zarejestrujPrzejazd(Krawedz krawedz) {
+        historiaPrzejazdow.obslozPrzejazd(krawedz);
     }
 
     /**
      * Wylicza atrakcyjność trasy na podstawie wzoru z treści zadania.
      */
     protected double lacznaAtrakcyjnosc(Trasa trasa) {
-        return wspolczynnikTrudnosci * atrakcyjnoscPoziomuTrudnosci(trasa)
-                + wspolczynnikNawierzchni * trasa.wyrownanieNawierzchni();
+        return wagaTrudnosci * atrakcyjnoscPoziomuTrudnosci(trasa)
+                + wagaNawierzchni * trasa.wyrownanieNawierzchni();
+    }
+
+    protected double poziomZnudzenia() {
+        final int x = 0; // TODO zjezdza dana trasa??
+        final double z = 0;
+        return wspolczynnikZnudzenia * x + (1 - wspolczynnikZnudzenia) * z;
     }
 
     protected double atrakcyjnoscPoziomuTrudnosci(Trasa trasa) {
@@ -129,6 +134,32 @@ public abstract class Sportowiec {
         }
     }
 
+    public boolean czyNastepnyKrokLosowy() {
+        if (maszynaLosujaca.losowyDouble(0, 1) < wspolczynnikSpontanicznosci) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Spontaniczna decyzja polega na wylosowaniu następnej krawędzi jednostajnie
+     * spośród wszystkich zaczynających się w obecnym wierzchołku.
+     */
+    protected Zdarzenie podejmijSpontanicznaDecyzje(Moment moment, Wezel obecnyWezel) {
+        final MaszynaLosujaca maszynaLosujaca = maszynaLosujaca();
+        Trasa[] bezposrednieTrasy = obecnyWezel.wychodzaceTrasy();
+        Wyciag[] wyciagi = obecnyWezel.wychodzaceWyciagi();
+
+        int losowyWybor = maszynaLosujaca.losowyInt(0, bezposrednieTrasy.length + wyciagi.length);
+
+        if (losowyWybor < bezposrednieTrasy.length) {
+            return bezposrednieTrasy[losowyWybor].zdarzenieNastepnegoKroku(moment, this);
+        } else {
+            return wyciagi[losowyWybor - bezposrednieTrasy.length].zdarzenieNastepnegoKroku(moment, this);
+        }
+    }
+
 
     /**
      * Tworzy kopie sportowca z tymi samymi parametrami ale zwiekszonym id oraz momentem startu.
@@ -138,13 +169,14 @@ public abstract class Sportowiec {
         return new SportowiecLokalny(id + przesuniecieId,
                 poziomZaawansowania,
                 wspolczynnikSpontanicznosci,
-                wspolczynnikTrudnosci,
-                wspolczynnikNawierzchni,
+                wagaTrudnosci,
+                wagaNawierzchni,
                 sledzony,
                 wezelStartowy,
                 momentStartu.dodajInterwal(przesuniecieMomentuStartu),
                 maszynaLosujaca,
-                wspolczynnikZnudzenia);
+                wspolczynnikZnudzenia,
+                wagaZnudzenia);
     }
 
     @Override
