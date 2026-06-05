@@ -2,16 +2,17 @@ package kolejkaZdarzen.zdarzenia;
 
 import czas.Moment;
 import dziennik.Dziennik;
+import osrodek.Osrodek;
 import osrodek.Wezel;
-import sportowcy.SportowiecLokalny;
+import sportowcy.Sportowiec;
 
 public class PoczatekDnia extends Zdarzenie {
 
     private final Wezel wezel;
 
-    private final SportowiecLokalny sportowiec;
+    private final Sportowiec sportowiec;
 
-    public PoczatekDnia(Moment moment, Wezel wezel, SportowiecLokalny sportowiec) {
+    public PoczatekDnia(Moment moment, Wezel wezel, Sportowiec sportowiec) {
         super(moment);
         this.wezel = wezel;
         this.sportowiec = sportowiec;
@@ -21,17 +22,17 @@ public class PoczatekDnia extends Zdarzenie {
         return wezel;
     }
 
-    public SportowiecLokalny sportowiec() {
+    public Sportowiec sportowiec() {
         return sportowiec;
     }
 
     @Override
-    public Zdarzenie[] przetworz(Dziennik dziennik) {
+    public Zdarzenie[] przetworz(Dziennik dziennik, Osrodek osrodek) {
         dziennik.dodajWpisZeSportowcem(moment,
             sportowiec,
             String.format("rozpoczął swój dzień na stoku w %s", wezel.toString()));
 
-        return new Zdarzenie[]{sportowiec.nastepnyKrok(moment, wezel)};
+        return new Zdarzenie[]{sportowiec.nastepnyKrok(moment, wezel, osrodek)};
     }
 
     @Override

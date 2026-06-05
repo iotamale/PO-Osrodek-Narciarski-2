@@ -19,9 +19,9 @@ public class Symulacja {
     public void przeprowadzSymulacje(Dziennik dziennik,
         KolejkaZdarzen kolejkaZdarzen,
         Osrodek osrodek,
-        Sportowiec[] sportowcy) {
+         Sportowiec[] sportowcy) {
         przygotujPoczatkoweZdarzenia(kolejkaZdarzen, osrodek, sportowcy);
-        glownaPetla(kolejkaZdarzen, dziennik);
+        glownaPetla(kolejkaZdarzen, dziennik, osrodek);
         zbierzStatystyki(osrodek, dziennik);
     }
 
@@ -45,10 +45,10 @@ public class Symulacja {
      * 2. Przetwarzamy je,
      * 3. Dorzucamy na kolejkę nowe zdarzenia, o ile chcemy je jeszcze przetwarzać.
      */
-    private void glownaPetla(KolejkaZdarzen kolejkaZdarzen, Dziennik dziennik) {
+    private void glownaPetla(KolejkaZdarzen kolejkaZdarzen, Dziennik dziennik, Osrodek osrodek) {
         while (!kolejkaZdarzen.czyPusta()) {
             Zdarzenie nastepneZdarzenie = kolejkaZdarzen.zdejmij();
-            Zdarzenie[] noweZdarzenia = nastepneZdarzenie.przetworz(dziennik);
+            Zdarzenie[] noweZdarzenia = nastepneZdarzenie.przetworz(dziennik, osrodek);
 
             for (Zdarzenie noweZdarzenie : noweZdarzenia) {
                 if (noweZdarzenie.moment().wczesniejNiz(KONIEC_SYMULACJI)

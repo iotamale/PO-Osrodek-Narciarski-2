@@ -2,16 +2,17 @@ package kolejkaZdarzen.zdarzenia;
 
 import czas.Moment;
 import dziennik.Dziennik;
+import osrodek.Osrodek;
 import osrodek.krawedz.wyciag.Wyciag;
-import sportowcy.SportowiecLokalny;
+import sportowcy.Sportowiec;
 
 public class DolaczenieDoKolejki extends Zdarzenie {
 
     private final Wyciag wyciag;
 
-    private final SportowiecLokalny sportowiec;
+    private final Sportowiec sportowiec;
 
-    public DolaczenieDoKolejki(Moment moment, Wyciag wyciag, SportowiecLokalny sportowiec) {
+    public DolaczenieDoKolejki(Moment moment, Wyciag wyciag, Sportowiec sportowiec) {
         super(moment);
         this.wyciag = wyciag;
         this.sportowiec = sportowiec;
@@ -21,16 +22,16 @@ public class DolaczenieDoKolejki extends Zdarzenie {
         return wyciag;
     }
 
-    public SportowiecLokalny sportowiec() {
+    public Sportowiec sportowiec() {
         return sportowiec;
     }
 
     @Override
-    public Zdarzenie[] przetworz(Dziennik dziennik) {
+    public Zdarzenie[] przetworz(Dziennik dziennik, Osrodek osrodek) {
         dziennik
             .dodajWpisZeSportowcem(moment, sportowiec, String.format("dołączył do kolejki w %s", wyciag.toString()));
 
-        wyciag.dodajDoKolejki(sportowiec);
+        wyciag.dodajDoKolejki(sportowiec, moment);
 
         return new Zdarzenie[0];
     }

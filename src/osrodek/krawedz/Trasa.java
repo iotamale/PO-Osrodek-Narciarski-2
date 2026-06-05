@@ -2,7 +2,10 @@ package osrodek.krawedz;
 
 import czas.Interwal;
 import czas.Moment;
+import kolejkaZdarzen.zdarzenia.RozpoczecieZjazdu;
+import kolejkaZdarzen.zdarzenia.Zdarzenie;
 import osrodek.Wezel;
+import sportowcy.Sportowiec;
 
 public class Trasa extends Krawedz {
 
@@ -62,8 +65,16 @@ public class Trasa extends Krawedz {
         return String.format("Zjazdów: %d\nWyrównanie trasy na koniec dnia: %f", liczbaZjazdow, wyrownanieNawierzchni());
     }
 
+    /**
+     * Tworzy zdarzenie zjazdu bezpośrednią trasą w następnym kroku.
+     */
+    @Override
+    public Zdarzenie zdarzenieNastepnegoKroku(Moment moment, Sportowiec sportowiec) {
+        return new RozpoczecieZjazdu(moment, this, sportowiec);
+    }
+
     @Override
     public String toString() {
-        return String.format("Trasa nr %d", id());
+        return String.format("t%d", id());
     }
 }

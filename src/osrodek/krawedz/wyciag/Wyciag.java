@@ -3,12 +3,13 @@ package osrodek.krawedz.wyciag;
 import czas.Interwal;
 import czas.Moment;
 import dziennik.Dziennik;
+import kolejkaZdarzen.zdarzenia.DolaczenieDoKolejki;
 import kolejkaZdarzen.zdarzenia.DotarcieDoWezla;
 import kolejkaZdarzen.zdarzenia.OdjazdWyciagu;
 import kolejkaZdarzen.zdarzenia.Zdarzenie;
 import osrodek.Wezel;
 import osrodek.krawedz.Krawedz;
-import sportowcy.SportowiecLokalny;
+import sportowcy.Sportowiec;
 
 public class Wyciag extends Krawedz {
 
@@ -60,7 +61,7 @@ public class Wyciag extends Krawedz {
         ostatniaOperacjaNaKolejce = moment;
     }
 
-    public void dodajDoKolejki(SportowiecLokalny sportowiec, Moment moment) {
+    public void dodajDoKolejki(Sportowiec sportowiec, Moment moment) {
         obslozSumeDlugKolejki(moment);
 
         obecnaKolejka.dodaj(sportowiec);
@@ -75,11 +76,11 @@ public class Wyciag extends Krawedz {
     public Zdarzenie[] odjazd(Moment moment, Dziennik dziennik) {
         obslozSumeDlugKolejki(moment);
 
-        SportowiecLokalny[] odjezdzajacySportowcy = obecnaKolejka.zdejmij(Math.min(obecnaKolejka.rozmiar(), ladownosc));
+        Sportowiec[] odjezdzajacySportowcy = obecnaKolejka.zdejmij(Math.min(obecnaKolejka.rozmiar(), ladownosc));
 
-        for (SportowiecLokalny sportowiec : odjezdzajacySportowcy) {
+        for (Sportowiec sportowiec : odjezdzajacySportowcy) {
             dziennik.dodajWpisZeSportowcem(moment, sportowiec, String.format("rozpoczął wjazd %s", toString()));
-            sportowiec.zglosPrzejazdWyciagiem(this);
+            sportowiec.zarejestrujPrzejazd(this);
         }
 
         Zdarzenie[] noweZdarzenia = new Zdarzenie[1 + odjezdzajacySportowcy.length];
@@ -117,8 +118,16 @@ public class Wyciag extends Krawedz {
                 maksDlugoscKolejki, sredniaDlugoscKolejki(), lacznaLiczbaPasazerow, procentZajetychMiejsc());
     }
 
+    /**
+     * Tworzy zdarzenie dołączenia do kolejki do wyciągu w nastepnym kroku.
+     */
+    @Override
+    public Zdarzenie zdarzenieNastepnegoKroku(Moment moment, Sportowiec sportowiec) {
+        return new DolaczenieDoKolejki(moment, this, sportowiec);
+    }
+
     @Override
     public String toString() {
-        return String.format("Wyciąg nr %d", id());
+        return String.format("w%d", id());
     }
 }

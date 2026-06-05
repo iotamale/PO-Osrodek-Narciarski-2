@@ -2,16 +2,17 @@ package kolejkaZdarzen.zdarzenia;
 
 import czas.Moment;
 import dziennik.Dziennik;
+import osrodek.Osrodek;
 import osrodek.krawedz.Trasa;
-import sportowcy.SportowiecLokalny;
+import sportowcy.Sportowiec;
 
 public class RozpoczecieZjazdu extends Zdarzenie {
 
     private final Trasa trasa;
 
-    private final SportowiecLokalny sportowiec;
+    private final Sportowiec sportowiec;
 
-    public RozpoczecieZjazdu(Moment moment, Trasa trasa, SportowiecLokalny sportowiec) {
+    public RozpoczecieZjazdu(Moment moment, Trasa trasa, Sportowiec sportowiec) {
         super(moment);
         this.trasa = trasa;
         this.sportowiec = sportowiec;
@@ -21,14 +22,14 @@ public class RozpoczecieZjazdu extends Zdarzenie {
         return trasa;
     }
 
-    public SportowiecLokalny sportowiec() {
+    public Sportowiec sportowiec() {
         return sportowiec;
     }
 
     @Override
-    public Zdarzenie[] przetworz(Dziennik dziennik) {
+    public Zdarzenie[] przetworz(Dziennik dziennik, Osrodek osrodek) {
         dziennik.dodajWpisZeSportowcem(moment, sportowiec, String.format("rozpoczyna zjazd %s", trasa.toString()));
-        sportowiec.zglosPrzejazdTrasa(trasa);
+        sportowiec.zarejestrujPrzejazd(trasa);
 
         return new Zdarzenie[]{new DotarcieDoWezla(trasa.przemierz(moment), trasa, trasa.koniec(), sportowiec)};
     }

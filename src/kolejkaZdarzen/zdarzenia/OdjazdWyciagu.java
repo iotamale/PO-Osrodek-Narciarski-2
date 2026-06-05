@@ -2,6 +2,7 @@ package kolejkaZdarzen.zdarzenia;
 
 import czas.Moment;
 import dziennik.Dziennik;
+import osrodek.Osrodek;
 import osrodek.krawedz.wyciag.Wyciag;
 
 public class OdjazdWyciagu extends Zdarzenie {
@@ -18,7 +19,7 @@ public class OdjazdWyciagu extends Zdarzenie {
     }
 
     @Override
-    public Zdarzenie[] przetworz(Dziennik dziennik) {
+    public Zdarzenie[] przetworz(Dziennik dziennik, Osrodek osrodek) {
         return wyciag.odjazd(moment, dziennik);
     }
 

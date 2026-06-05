@@ -12,9 +12,7 @@ import sportowcy.Sportowiec;
 public class BuforCyklicznySportowcow implements KolejkaSportowcow {
 
     private Sportowiec[] sportowcy;
-
     private int poczatek;
-
     private int rozmiar;
 
     public BuforCyklicznySportowcow() {

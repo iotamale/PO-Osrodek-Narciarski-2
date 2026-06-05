@@ -2,9 +2,10 @@ package kolejkaZdarzen.zdarzenia;
 
 import czas.Moment;
 import dziennik.Dziennik;
+import osrodek.Osrodek;
 import osrodek.Wezel;
 import osrodek.krawedz.Krawedz;
-import sportowcy.SportowiecLokalny;
+import sportowcy.Sportowiec;
 
 public class DotarcieDoWezla extends Zdarzenie {
 
@@ -12,9 +13,9 @@ public class DotarcieDoWezla extends Zdarzenie {
 
     private final Wezel wezel;
 
-    private final SportowiecLokalny sportowiec;
+    private final Sportowiec sportowiec;
 
-    public DotarcieDoWezla(Moment moment, Krawedz poprzedniaKrawedz, Wezel wezel, SportowiecLokalny sportowiec) {
+    public DotarcieDoWezla(Moment moment, Krawedz poprzedniaKrawedz, Wezel wezel, Sportowiec sportowiec) {
         super(moment);
         this.poprzedniaKrawedz = poprzedniaKrawedz;
         this.wezel = wezel;
@@ -29,19 +30,19 @@ public class DotarcieDoWezla extends Zdarzenie {
         return wezel;
     }
 
-    public SportowiecLokalny sportowiec() {
+    public Sportowiec sportowiec() {
         return sportowiec;
     }
 
     @Override
-    public Zdarzenie[] przetworz(Dziennik dziennik) {
+    public Zdarzenie[] przetworz(Dziennik dziennik, Osrodek osrodek) {
         dziennik.dodajWpisZeSportowcem(moment,
             sportowiec,
             String.format("zakończył przemierzanie %s i znajduje się w %s",
                 poprzedniaKrawedz.toString(),
                 wezel.toString()));
 
-        return new Zdarzenie[]{sportowiec.nastepnyKrok(moment, wezel)};
+        return new Zdarzenie[]{sportowiec.nastepnyKrok(moment, wezel, osrodek)};
     }
 
     /**

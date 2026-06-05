@@ -2,7 +2,7 @@ import java.util.Locale;
 import java.util.Scanner;
 
 import dziennik.DziennikStandardoweWyjscie;
-import kolejkaZdarzen.ProstaTablicaZdarzen;
+import kolejkaZdarzen.KolejkaPriorytetowaZdarzen;
 import losowosc.DeterministycznaMaszynaLosujaca;
 import symulacja.Symulacja;
 import wczytywacz.DaneWejsciowe;
@@ -14,7 +14,7 @@ public class Main {
         DaneWejsciowe daneWejsciowe = wczytajWejscie();
 
         new Symulacja().przeprowadzSymulacje(new DziennikStandardoweWyjscie(),
-            new ProstaTablicaZdarzen(),
+            new KolejkaPriorytetowaZdarzen(),
             daneWejsciowe.osrodek(),
             daneWejsciowe.sportowcy());
     }

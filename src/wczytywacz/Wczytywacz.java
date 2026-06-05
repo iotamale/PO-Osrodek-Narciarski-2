@@ -10,6 +10,7 @@ import osrodek.krawedz.Trasa;
 import osrodek.krawedz.wyciag.Wyciag;
 import sportowcy.GrupaSportowcow;
 import sportowcy.Sportowiec;
+import sportowcy.SportowiecLokalny;
 
 public class Wczytywacz {
 
@@ -131,7 +132,7 @@ public class Wczytywacz {
             odstepCzasowy = new Interwal(scanner.nextInt());
         }
 
-        Sportowiec pierwszySportowiec = new Sportowiec(nastepneId,
+        SportowiecLokalny pierwszySportowiec = new SportowiecLokalny(nastepneId,
             poziomZaawansowania,
             wspolczynnikSpontanicznosci,
             wagaDopasowania,

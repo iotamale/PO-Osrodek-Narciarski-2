@@ -2,6 +2,7 @@ package kolejkaZdarzen.zdarzenia;
 
 import czas.Moment;
 import dziennik.Dziennik;
+import osrodek.Osrodek;
 
 public abstract class Zdarzenie {
 
@@ -19,7 +20,7 @@ public abstract class Zdarzenie {
      * Wywołuje odpowiednie efekty zdarzenia i daje nowo stworzone zdarzenia
      * w kolejności niemalejących momentów.
      */
-    public abstract Zdarzenie[] przetworz(Dziennik dziennik);
+    public abstract Zdarzenie[] przetworz(Dziennik dziennik, Osrodek osrodek);
 
     public abstract boolean czyPrzetwarzacPoZakonczeniuSymulacji();
 

@@ -1,7 +1,10 @@
 package osrodek.krawedz;
 
 import czas.Interwal;
+import czas.Moment;
+import kolejkaZdarzen.zdarzenia.Zdarzenie;
 import osrodek.Wezel;
+import sportowcy.Sportowiec;
 
 public abstract class Krawedz {
 
@@ -37,6 +40,8 @@ public abstract class Krawedz {
     }
 
     public abstract String wypiszStatystyki();
+
+    public abstract Zdarzenie zdarzenieNastepnegoKroku(Moment moment, Sportowiec sportowiec);
 
     @Override
     public String toString() {
