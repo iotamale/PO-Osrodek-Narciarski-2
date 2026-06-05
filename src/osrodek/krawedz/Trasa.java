@@ -7,6 +7,8 @@ import kolejkaZdarzen.zdarzenia.Zdarzenie;
 import osrodek.Wezel;
 import sportowcy.Sportowiec;
 
+import java.util.ArrayList;
+
 public class Trasa extends Krawedz {
 
     private final int poziomTrudnosci; // {0, 1, ..., 10}
@@ -71,6 +73,18 @@ public class Trasa extends Krawedz {
     @Override
     public Zdarzenie zdarzenieNastepnegoKroku(Moment moment, Sportowiec sportowiec) {
         return new RozpoczecieZjazdu(moment, this, sportowiec);
+    }
+
+
+    /**
+     * Generuje opis wykorzystywany do pierwszej mapki.
+     */
+    @Override
+    public ArrayList<String> generujOpisMapkaParametrow() {
+        ArrayList<String> linie = new ArrayList<>();
+        linie.add(String.format("t%d: poziom: %d, czas: %ds", id(), poziomTrudnosci, dlugosc().sekundy()));
+        linie.add(String.format("odporność: %.2f, %.5f", bazowaAtrakcyjnosc, odpornoscNaNierownosci));
+        return linie;
     }
 
     @Override

@@ -11,6 +11,8 @@ import osrodek.Wezel;
 import osrodek.krawedz.Krawedz;
 import sportowcy.Sportowiec;
 
+import java.util.ArrayList;
+
 public class Wyciag extends Krawedz {
 
     private static final Moment PIERWSZY_ODJAZD = new Moment(9, 0, 0);
@@ -124,6 +126,17 @@ public class Wyciag extends Krawedz {
     @Override
     public Zdarzenie zdarzenieNastepnegoKroku(Moment moment, Sportowiec sportowiec) {
         return new DolaczenieDoKolejki(moment, this, sportowiec);
+    }
+
+    /**
+     * Generuje opis wykorzystywany do pierwszej mapki.
+     */
+    @Override
+    public ArrayList<String> generujOpisMapkaParametrow() {
+        ArrayList<String> linie = new ArrayList<>();
+        linie.add(String.format("w%d: %d os. co %ds", id(), ladownosc, odstepMiedzyOdjazdami.sekundy()));
+        linie.add(String.format("czas: %ds", dlugosc().sekundy()));
+        return linie;
     }
 
     @Override

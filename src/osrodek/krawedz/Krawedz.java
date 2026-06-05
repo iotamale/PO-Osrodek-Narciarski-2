@@ -6,6 +6,8 @@ import kolejkaZdarzen.zdarzenia.Zdarzenie;
 import osrodek.Wezel;
 import sportowcy.Sportowiec;
 
+import java.util.ArrayList;
+
 public abstract class Krawedz {
 
     private final int id;
@@ -42,6 +44,11 @@ public abstract class Krawedz {
     public abstract String wypiszStatystyki();
 
     public abstract Zdarzenie zdarzenieNastepnegoKroku(Moment moment, Sportowiec sportowiec);
+
+    /**
+     * Generuje opis wykorzystywany do pierwszej mapki.
+     */
+    public abstract ArrayList<String> generujOpisMapkaParametrow();
 
     @Override
     public String toString() {
