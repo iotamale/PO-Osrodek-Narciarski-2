@@ -32,10 +32,8 @@ public class SportowiecKolekcjoner extends SportowiecPlanujacy {
                 .min(
                     // Min zjazdow
                     Comparator.comparingInt((Trasa trasa) -> historiaPrzejazdow().liczbaPrzejazdowKrawedzia(trasa))
-
                     // Jesli remis to min dystans
                     .thenComparingInt(trasa -> bfs.pobierzOdleglosc(trasa.poczatek()))
-
                     // Dalszy remis to max atrakcyjnosc
                     .thenComparing(Comparator.comparingDouble(this::lacznaAtrakcyjnosc).reversed())
                 ).orElse(null);

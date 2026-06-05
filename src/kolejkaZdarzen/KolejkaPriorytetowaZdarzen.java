@@ -19,7 +19,7 @@ public class KolejkaPriorytetowaZdarzen implements KolejkaZdarzen {
 
     @Override
     public Zdarzenie zdejmij() {
-        assert !czyPusta() : "Nie można zdjąć elementu z pustej kolejki";
+        assert !czyPusta() : "Próba zdjęcia elementu z pustej kolejki";
 
         final ParaZdarzeniowa top = kolejka.poll();
         assert top != null : "Na czele kolejki odłożony jest null";

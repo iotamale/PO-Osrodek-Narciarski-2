@@ -100,6 +100,9 @@ public abstract class Sportowiec {
         return historiaPrzejazdow;
     }
 
+    /**
+     * Funkcja, którą umożliwiamy rejestrację przejazdu do historii sportowca.
+     */
     public void zarejestrujPrzejazd(Krawedz krawedz) {
         historiaPrzejazdow.obslozPrzejazd(krawedz);
     }
@@ -112,6 +115,7 @@ public abstract class Sportowiec {
                 + wagaNawierzchni * trasa.wyrownanieNawierzchni() + wagaZnudzenia * (1 - poziomZnudzenia());
     }
 
+    // TODO dokonczyc!
     protected double poziomZnudzenia() {
         final int x = 0; // TODO zjezdza dana trasa??
         final double z = 0;
@@ -134,6 +138,9 @@ public abstract class Sportowiec {
         }
     }
 
+    /**
+     * Funkcja determinująca, czy nastepny krok jest losowy.
+     */
     public boolean czyNastepnyKrokLosowy() {
         if (maszynaLosujaca.losowyDouble(0, 1) < wspolczynnikSpontanicznosci) {
             return true;

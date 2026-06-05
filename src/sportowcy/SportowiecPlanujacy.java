@@ -29,6 +29,9 @@ public abstract class SportowiecPlanujacy extends Sportowiec {
                 momentStartu, maszynaLosujaca, wspolczynnikZnudzenia, wagaZnudzenia);
     }
 
+    /**
+     * Funkcja odpowiedzialna za wyznaczenie najlepszej trasy dla planującego sportowca.
+     */
     protected abstract Trasa znajdzWymarzonaTrase(Osrodek osrodek, PrzeszukiwanieGrafu bfs);
 
     /**

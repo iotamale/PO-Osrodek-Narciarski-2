@@ -46,6 +46,14 @@ public class Wyciag extends Krawedz {
         ostatniaOperacjaNaKolejce = PIERWSZY_ODJAZD;
     }
 
+    public int lacznaLiczbaPasazerow() {
+        return lacznaLiczbaPasazerow;
+    }
+
+    public int maksDlugoscKolejki() {
+        return maksDlugoscKolejki;
+    }
+
     /**
      * Funkcja odpowiedzialna za obsługę sum długości kolejki.
      * Jeśli moment wywołania.equals(ostatniaOperacjaNaKolejce), to oznacza to, że
