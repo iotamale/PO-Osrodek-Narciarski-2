@@ -11,7 +11,7 @@ import wczytywacz.Wczytywacz;
 public class Main {
 
     public static void main(String[] args) {
-        DaneWejsciowe daneWejsciowe = wczytajWejscie();
+        final DaneWejsciowe daneWejsciowe = wczytajWejscie();
 
         new Symulacja().przeprowadzSymulacje(new DziennikStandardoweWyjscie(),
             new KolejkaPriorytetowaZdarzen(),

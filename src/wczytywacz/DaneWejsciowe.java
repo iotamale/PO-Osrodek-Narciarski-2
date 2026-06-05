@@ -16,7 +16,7 @@ public class DaneWejsciowe {
     private final Sportowiec[] sportowcy;
 
     public DaneWejsciowe(Wezel[] wezly, Trasa[] trasy, Wyciag[] wyciagi, GrupaSportowcow[] grupySportowcow) {
-        for (Wezel wezel : wezly) {
+        for (final Wezel wezel : wezly) {
             wezel.wychodzaceTrasy(znajdzWychodzaceTrasy(trasy, wezel));
             wezel.wychodzaceWyciagi(znajdzWychodzaceWyciagi(wyciagi, wezel));
         }

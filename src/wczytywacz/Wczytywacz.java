@@ -8,14 +8,15 @@ import losowosc.MaszynaLosujaca;
 import osrodek.Wezel;
 import osrodek.krawedz.Trasa;
 import osrodek.krawedz.wyciag.Wyciag;
-import sportowcy.GrupaSportowcow;
-import sportowcy.Sportowiec;
-import sportowcy.SportowiecLokalny;
+import sportowcy.*;
 
 public class Wczytywacz {
 
-    private final Scanner scanner;
+    private static final String OZNACZENIE_LOKALNY = "L";
+    private static final String OZNACZENIE_ZACHLANNY = "Z";
+    private static final String OZNACZENIE_KOLEKCJONER = "K";
 
+    private final Scanner scanner;
     private final MaszynaLosujaca maszynaLosujaca;
 
     public Wczytywacz(Scanner scanner, MaszynaLosujaca maszynaLosujaca) {
@@ -114,14 +115,36 @@ public class Wczytywacz {
         return grupySportowcow;
     }
 
+    private Sportowiec stworzPierwszegoSportowca(String rodzaj, int id,
+                                                 int poziom, double wspSpontanicznosci,
+                                                 double wD, double wJN,
+                                                 boolean sledzony, Wezel startowy,
+                                                 Moment start, MaszynaLosujaca maszyna,
+                                                 double wspZnudzenia, double wZ) {
+
+        return switch (rodzaj) {
+            case OZNACZENIE_LOKALNY -> new SportowiecLokalny(id, poziom, wspSpontanicznosci, wD,
+                    wJN, sledzony, startowy, start, maszyna, wspZnudzenia, wZ);
+            case OZNACZENIE_KOLEKCJONER -> new SportowiecKolekcjoner(id, poziom, wspSpontanicznosci, wD,
+                    wJN, sledzony, startowy, start, maszyna, wspZnudzenia, wZ);
+            case OZNACZENIE_ZACHLANNY -> new SportowiecZachlanny(id, poziom, wspSpontanicznosci, wD,
+                    wJN, sledzony, startowy, start, maszyna, wspZnudzenia, wZ);
+            default -> null;
+        };
+
+    }
+
     private GrupaSportowcow wczytajGrupeSportowcow(int nastepneId, Wezel[] wezly) {
         int liczbaSportowcowWGrupie = scanner.nextInt();
         int poziomZaawansowania = scanner.nextInt();
         double wspolczynnikSpontanicznosci = scanner.nextDouble();
+        double wspolczynnikZnudzenia = scanner.nextDouble();
+        String oznaczenieRodzaju = scanner.next();
         boolean czySledzeni = scanner.findInLine("s") != null;
 
         double wagaDopasowania = scanner.nextDouble();
         double wagaJakosciNawierzchni = scanner.nextDouble();
+        double wagaZnudzenia = scanner.nextDouble();
         int idPoczatkowegoWezla = scanner.nextInt();
 
         Moment start = wczytajMoment();
@@ -132,15 +155,11 @@ public class Wczytywacz {
             odstepCzasowy = new Interwal(scanner.nextInt());
         }
 
-        SportowiecLokalny pierwszySportowiec = new SportowiecLokalny(nastepneId,
-            poziomZaawansowania,
-            wspolczynnikSpontanicznosci,
-            wagaDopasowania,
-            wagaJakosciNawierzchni,
-            czySledzeni,
-            wezly[idPoczatkowegoWezla],
-            start,
-            maszynaLosujaca);
+        final Sportowiec pierwszySportowiec = stworzPierwszegoSportowca(oznaczenieRodzaju, nastepneId, poziomZaawansowania,
+                wspolczynnikSpontanicznosci, wagaDopasowania, wagaJakosciNawierzchni, czySledzeni, wezly[idPoczatkowegoWezla],
+                start, maszynaLosujaca, wspolczynnikZnudzenia, wagaZnudzenia);
+        
+        assert pierwszySportowiec != null : "Bledny identyifkator rodzaju sportowca.";
 
         return new GrupaSportowcow(pierwszySportowiec, liczbaSportowcowWGrupie, odstepCzasowy);
     }
