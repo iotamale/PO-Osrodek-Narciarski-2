@@ -35,10 +35,4 @@ public class SportowiecZachlanny extends SportowiecPlanujacy {
                 .orElse(null);
     }
 
-    @Override
-    public Zdarzenie nastepnyKrok(Moment moment, Wezel obecnyWezel, Osrodek osrodek) {
-        return null;
-    }
-
-
 }
