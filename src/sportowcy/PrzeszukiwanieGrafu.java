@@ -1,9 +1,7 @@
 package sportowcy;
 
-import czas.Interwal;
 import osrodek.Wezel;
 import osrodek.krawedz.Krawedz;
-import osrodek.krawedz.Trasa;
 
 import java.util.*;
 import java.util.stream.Stream;
@@ -40,23 +38,20 @@ public class PrzeszukiwanieGrafu {
         }
     }
 
-    public Queue<Krawedz> wyznaczPlan(Trasa cel) {
-        final Wezel poczatekTrasy = cel.poczatek();
-
-        if (!odleglosci.containsKey(poczatekTrasy)) {
+    public Queue<Krawedz> wyznaczSciezke(Wezel cel) {
+        if (!odleglosci.containsKey(cel)) {
             return null;
         }
 
-        final LinkedList<Krawedz> plan = new LinkedList<>();
-        plan.addFirst(cel);
+        final LinkedList<Krawedz> sciezka = new LinkedList<>();
+        Wezel obecny = cel;
 
-        Wezel obecny = poczatekTrasy;
         while (poprzednicy.containsKey(obecny)) {
-            plan.addFirst(krawedzieWejsciowe.get(obecny));
+            sciezka.addFirst(krawedzieWejsciowe.get(obecny));
             obecny = poprzednicy.get(obecny);
         }
 
-        return plan;
+        return sciezka;
     }
 
     public int pobierzOdleglosc(Wezel wezel) {

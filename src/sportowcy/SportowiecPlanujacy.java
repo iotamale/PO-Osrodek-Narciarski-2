@@ -60,7 +60,7 @@ public abstract class SportowiecPlanujacy extends Sportowiec {
         final Trasa wymarzonaTrasa = znajdzWymarzonaTrase(osrodek, bfs);
 
         if (wymarzonaTrasa != null) {
-            planPrzejazdu = bfs.wyznaczPlan(wymarzonaTrasa);
+            planPrzejazdu = bfs.wyznaczSciezke(wymarzonaTrasa.poczatek());
 
             if (planPrzejazdu != null && !planPrzejazdu.isEmpty()) {
                 return pobierzNastepnyZPlanu(moment);
