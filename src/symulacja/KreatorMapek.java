@@ -26,6 +26,7 @@ public class KreatorMapek {
     private static final String NAZWA_PLIK_PARAMETRY = "parametry.tex";
     private static final String NAZWA_PLIK_STATYSTYKI = "statystyki.tex";
     private static final String PREFIX_PLIK_SPORTOWIEC = "sportowiec";
+    private static final String POSTFIX_PLIK_SPORTOWIEC = ".tex";
 
     private final GeneratorMapek generator;
     private final Sportowiec[] sportowcy;
@@ -42,7 +43,7 @@ public class KreatorMapek {
     }
 
     private String nazwaPlikuSportowca(Sportowiec sportowiec) {
-        return PREFIX_PLIK_SPORTOWIEC + "-" + sportowiec.id() + ".tex";
+        return PREFIX_PLIK_SPORTOWIEC + "-" + sportowiec.id() + POSTFIX_PLIK_SPORTOWIEC;
     }
 
     private void generujMapke(Function<Trasa, ArrayList<String>> ekstraktorTrasa,
