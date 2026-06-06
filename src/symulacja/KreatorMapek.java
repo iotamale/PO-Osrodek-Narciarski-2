@@ -83,6 +83,9 @@ public class KreatorMapek {
 
     public void generujMapkeSportowcow() throws WyjatekSystemuPlikow {
         for (final Sportowiec s : sportowcy) {
+            if (!s.sledzony()) {
+                continue;
+            }
             final HistoriaPrzejazdowSportowca historia = s.historiaPrzejazdow();
             generujMapke(historia::stringDlaKrawedzi, historia::stringDlaKrawedzi, nazwaPlikuSportowca(s));
         }
