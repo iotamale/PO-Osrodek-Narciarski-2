@@ -1,4 +1,4 @@
-package sportowcy.sportowcy_planujacy.plan;
+package sportowcy.sportowcy_planujacy;
 
 import czas.Moment;
 import kolejkaZdarzen.zdarzenia.Zdarzenie;
@@ -6,7 +6,6 @@ import osrodek.Osrodek;
 import osrodek.Wezel;
 import osrodek.krawedz.Krawedz;
 import osrodek.krawedz.Trasa;
-import sportowcy.sportowcy_planujacy.SportowiecPlanujacy;
 
 import java.util.ArrayDeque;
 import java.util.Queue;

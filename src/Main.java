@@ -44,4 +44,14 @@ public class Main {
         Wczytywacz wczytywacz = new Wczytywacz(scanner, new DeterministycznaMaszynaLosujaca(0));
         return wczytywacz.wczytajWejscie();
     }
+
+    // TODO oddzielna klasa na statystyki danego wyciagu, trasy, itp
+    // TODO poprawne wyliczanie statystyk wyciagow
+    // TODO lepsze metody toString()
+    // TODO wyluskac comparatory tam gdzie sie da
+    // TODO rekord do trzymania alfa beta itp w sportowcu?
+
+    // TODO dopytac sie AZ czy moja wersja Historii i MiernikaZnudzenia jest okej
+    // TODO dopytac sie czy sens ma robienie rekordow i klasy WpisHistorii
+    // TODO asercje!
 }

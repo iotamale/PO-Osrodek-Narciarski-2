@@ -1,4 +1,4 @@
-package sportowcy.sportowcy_planujacy.plan;
+package sportowcy.sportowcy_planujacy;
 
 import osrodek.Wezel;
 import osrodek.krawedz.Krawedz;

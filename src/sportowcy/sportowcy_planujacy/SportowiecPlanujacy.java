@@ -7,8 +7,6 @@ import osrodek.Osrodek;
 import osrodek.Wezel;
 import osrodek.krawedz.Trasa;
 import sportowcy.Sportowiec;
-import sportowcy.sportowcy_planujacy.plan.PlanPrzejazdu;
-import sportowcy.sportowcy_planujacy.plan.PrzeszukiwanieGrafu;
 
 public abstract class SportowiecPlanujacy extends Sportowiec {
 

@@ -5,7 +5,6 @@ import losowosc.MaszynaLosujaca;
 import osrodek.Osrodek;
 import osrodek.Wezel;
 import osrodek.krawedz.Trasa;
-import sportowcy.sportowcy_planujacy.plan.PrzeszukiwanieGrafu;
 
 import java.util.Arrays;
 import java.util.Comparator;
