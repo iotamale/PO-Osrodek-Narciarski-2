@@ -11,7 +11,7 @@ import java.util.*;
 
 public class HistoriaPrzejazdowSportowca {
 
-    private final Map<Krawedz, SortedSet<Integer>> historia;
+    private final Map<Krawedz, SortedSet<Integer>> historia;    // TODO oddzielna klasa typu wpis?
     private int licznikPrzejazdow;
 
     public HistoriaPrzejazdowSportowca() {

@@ -1,4 +1,4 @@
-package sportowcy;
+package sportowcy.sportowcy_planujacy.plan;
 
 import osrodek.Wezel;
 import osrodek.krawedz.Krawedz;
@@ -58,8 +58,5 @@ public class PrzeszukiwanieGrafu {
     public int pobierzOdleglosc(Wezel wezel) {
         return odleglosci.getOrDefault(wezel, -1);
     }
-
-
-
 
 }

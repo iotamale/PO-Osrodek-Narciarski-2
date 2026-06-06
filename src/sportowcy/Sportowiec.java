@@ -2,17 +2,12 @@ package sportowcy;
 
 import czas.Interwal;
 import czas.Moment;
-import kolejkaZdarzen.zdarzenia.DolaczenieDoKolejki;
-import kolejkaZdarzen.zdarzenia.RozpoczecieZjazdu;
 import kolejkaZdarzen.zdarzenia.Zdarzenie;
 import losowosc.MaszynaLosujaca;
 import osrodek.Osrodek;
 import osrodek.Wezel;
-import osrodek.krawedz.Krawedz;
 import osrodek.krawedz.Trasa;
 import osrodek.krawedz.wyciag.Wyciag;
-
-import java.util.*;
 
 public abstract class Sportowiec {
 
