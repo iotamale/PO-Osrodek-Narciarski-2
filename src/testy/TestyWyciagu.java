@@ -63,6 +63,7 @@ public class TestyWyciagu {
 
         for (int i = 0; i < 3; i++) {
             assertInstanceOf(DotarcieDoWezla.class, zdarzenia[1 + i]);
+            // TODO - teoretycznie wewnatrz 3 poprawnie wybranych sportowcow nie musi byc taka sama!
             assertEquals(sportowcy[i], ((DotarcieDoWezla) zdarzenia[1 + i]).sportowiec());
         }
 
