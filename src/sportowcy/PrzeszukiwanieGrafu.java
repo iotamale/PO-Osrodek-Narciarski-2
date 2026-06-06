@@ -39,6 +39,7 @@ public class PrzeszukiwanieGrafu {
     }
 
     public Queue<Krawedz> wyznaczSciezke(Wezel cel) {
+        assert cel != null : "Docelowy wezel nie moze byc nullptr";
         if (!odleglosci.containsKey(cel)) {
             return null;
         }
