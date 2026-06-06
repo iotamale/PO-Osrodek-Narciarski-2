@@ -2,7 +2,7 @@
 
 clean:
 	rm -rf katalogMapki*
-	rm *.aux *.log *.pdf
+	rm -f katalogPdf/*
 
 pdf:
 	cd katalogPdf
