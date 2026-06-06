@@ -51,9 +51,9 @@ public class TestyWyciagu {
     }
 
     @Test
-    public void testPonadLimit3i() {
+    public void testPonadLimit3() {
         final int iluDodajemy = 4;
-        assertEquals(0, wyciag.lacznaLiczbaPasazerow());
+        assertEquals(0, wyciag.lacznaLiczbaPasazerow(), "Początkowo 0 przejazdów.");
 
         dodajSportowcowDoKolejki(0, iluDodajemy);
         final Zdarzenie[] zdarzenia = wyciag.odjazd(MOMENT0, dziennik);
@@ -70,8 +70,8 @@ public class TestyWyciagu {
     }
 
     @Test
-    public void testPonizejLimitu3i() {
-        assertEquals(0, wyciag.lacznaLiczbaPasazerow());
+    public void testPonizejLimitu3() {
+        assertEquals(0, wyciag.lacznaLiczbaPasazerow(), "Początkowo 0 przejazdów.");
 
         dodajSportowcowDoKolejki(0, 2);
         final Zdarzenie[] zdarzenia = wyciag.odjazd(MOMENT0, dziennik);
@@ -89,19 +89,19 @@ public class TestyWyciagu {
 
     @Test
     public void testMaksDlugosciKolejki() {
-        assertEquals(0, wyciag.maksDlugoscKolejki());
+        assertEquals(0, wyciag.lacznaLiczbaPasazerow(), "Początkowo 0 przejazdów.");
 
         dodajSportowcowDoKolejki(0, 4);
-        assertEquals(4, wyciag.maksDlugoscKolejki());
+        assertEquals(4, wyciag.maksDlugoscKolejki(), "4 sportowców w kolejce.");
 
         final Zdarzenie[] zdarzenia = wyciag.odjazd(MOMENT0, dziennik);
 
         assertEquals(3 + 1, zdarzenia.length);
-        assertEquals(4, wyciag.maksDlugoscKolejki());
+        assertEquals(4, wyciag.maksDlugoscKolejki(), "Długość nie powinna się zmienić.");
 
         wyciag.dodajDoKolejki(sportowcy[4], MOMENT0.dodajInterwal(new Interwal(2)));
 
-        assertEquals(4, wyciag.maksDlugoscKolejki());
+        assertEquals(4, wyciag.maksDlugoscKolejki(), "Długość nie powinna się zmienić.");
     }
 
 }

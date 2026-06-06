@@ -16,15 +16,16 @@ import static org.junit.jupiter.api.Assertions.*;
 public class TestyPrzeszukiwaniaGrafu {
 
     private static final Interwal INTERWAL = new Interwal(10);
+    private static final int[] WYSOKOSCI = {0, 10, 5, 20, 15, 30}; // Konstruktory Krawedzi sprawdzaja poprawnosc.
+
     private Wezel[] w;
 
     @BeforeEach
     public void przygotujGraf() {
         w = new Wezel[6];
-        final int[] wysokosci = {0, 10, 5, 20, 15, 30}; // Tak aby asercje w Trasa/Wyciag sie zgadzały.
 
         for (int i = 0; i < 6; i++) {
-            w[i] = new Wezel(i, wysokosci[i], 0, 0, false);
+            w[i] = new Wezel(i, WYSOKOSCI[i], 0, 0, false);
         }
 
         w[0].wychodzaceWyciagi(new Wyciag[]{
@@ -65,7 +66,7 @@ public class TestyPrzeszukiwaniaGrafu {
     }
 
     @Test
-    public void testSciezki0Do4() {
+    public void testSciezka0Do4() {
         final PrzeszukiwanieGrafu bfs = new PrzeszukiwanieGrafu(w[0]);
 
         assertEquals(3, bfs.pobierzOdleglosc(w[4]));
@@ -89,6 +90,7 @@ public class TestyPrzeszukiwaniaGrafu {
         final Queue<Krawedz> sciezka = bfs.wyznaczSciezke(w[1]);
         assertNotNull(sciezka);
         assertEquals(1, sciezka.size());
+
         assertNotNull(sciezka.peek());
         assertEquals(w[1], sciezka.peek().koniec());
     }
@@ -101,7 +103,7 @@ public class TestyPrzeszukiwaniaGrafu {
 
         final Queue<Krawedz> sciezka = bfs.wyznaczSciezke(w[2]);
         assertNotNull(sciezka);
-        assertTrue(sciezka.isEmpty());
+        assertTrue(sciezka.isEmpty(), "Sciezka do samego siebie powinna być pusta.");
     }
 
     @Test
@@ -114,7 +116,7 @@ public class TestyPrzeszukiwaniaGrafu {
         assertNotNull(sciezka);
         assertEquals(2, sciezka.size());
 
-        Krawedz[] kroki = sciezka.toArray(new Krawedz[0]);
+        final Krawedz[] kroki = sciezka.toArray(new Krawedz[0]);
         assertEquals(w[5], kroki[0].koniec(), "Krok 1. 4->5");
         assertEquals(w[3], kroki[1].koniec(), "Krok 2. 5->3");
     }
