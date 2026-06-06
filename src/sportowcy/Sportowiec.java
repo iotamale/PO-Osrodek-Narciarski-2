@@ -26,12 +26,12 @@ public abstract class Sportowiec {
     private final double wagaTrudnosci; // [0, 1]
     private final double wagaNawierzchni; // [0, 1]
     private final double wagaZnudzenia; // [0, 1]
-    private final double wspolczynnikZnudzenia; // [0, 1]
     private final boolean sledzony;
     private final Wezel wezelStartowy;
     private final Moment momentStartu;
     private final MaszynaLosujaca maszynaLosujaca;
     private final HistoriaPrzejazdowSportowca historiaPrzejazdow;
+    private final MiernikZnudzenia miernikZnudzenia;
 
     public Sportowiec(int id,
                       int poziomZaawansowania,
@@ -52,10 +52,10 @@ public abstract class Sportowiec {
         this.wezelStartowy = wezelStartowy;
         this.momentStartu = momentStartu;
         this.maszynaLosujaca = maszynaLosujaca;
-        this.wspolczynnikZnudzenia = wspolczynnikZnudzenia;
         this.wagaZnudzenia = wagaZnudzenia;
 
         historiaPrzejazdow = new HistoriaPrzejazdowSportowca();
+        miernikZnudzenia = new MiernikZnudzenia(wspolczynnikZnudzenia);
     }
 
     public int id() {
@@ -101,10 +101,19 @@ public abstract class Sportowiec {
     }
 
     /**
-     * Funkcja, którą umożliwiamy rejestrację przejazdu do historii sportowca.
+     * Funkcja, która rejestruje w historii przejazd TRASĄ sportowca
+     * oraz rejestruje poziom znudzenia.
      */
-    public void zarejestrujPrzejazd(Krawedz krawedz) {
-        historiaPrzejazdow.obslozPrzejazd(krawedz);
+    public void zarejestrujPrzejazdTrasa(Trasa trasa) {
+        historiaPrzejazdow.obslozPrzejazd(trasa);
+        miernikZnudzenia.zglosZjazdTrasa(trasa);
+    }
+
+    /**
+     * Funkcja, która rejestruje w historii przejazd WYCIĄGIEM sportowca.
+     */
+    public void zarejestrujPrzejazdWyciagiem(Wyciag wyciag) {
+        historiaPrzejazdow.obslozPrzejazd(wyciag);
     }
 
     /**
@@ -112,14 +121,8 @@ public abstract class Sportowiec {
      */
     protected double lacznaAtrakcyjnosc(Trasa trasa) {
         return wagaTrudnosci * atrakcyjnoscPoziomuTrudnosci(trasa)
-                + wagaNawierzchni * trasa.wyrownanieNawierzchni() + wagaZnudzenia * (1 - poziomZnudzenia());
-    }
-
-    // TODO dokonczyc!
-    protected double poziomZnudzenia() {
-        final int x = 0; // TODO zjezdza dana trasa??
-        final double z = 0;
-        return wspolczynnikZnudzenia * x + (1 - wspolczynnikZnudzenia) * z;
+                + wagaNawierzchni * trasa.wyrownanieNawierzchni() +
+                wagaZnudzenia * (1 - miernikZnudzenia.pobierzZnudzenie(trasa));
     }
 
     protected double atrakcyjnoscPoziomuTrudnosci(Trasa trasa) {
@@ -182,7 +185,7 @@ public abstract class Sportowiec {
                 wezelStartowy,
                 momentStartu.dodajInterwal(przesuniecieMomentuStartu),
                 maszynaLosujaca,
-                wspolczynnikZnudzenia,
+                miernikZnudzenia.beta(),
                 wagaZnudzenia);
     }
 

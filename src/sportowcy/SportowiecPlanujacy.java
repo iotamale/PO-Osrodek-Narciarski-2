@@ -12,7 +12,7 @@ import java.util.Queue;
 
 public abstract class SportowiecPlanujacy extends Sportowiec {
 
-    private Queue<Krawedz> planPrzejazdu;
+    private Queue<Krawedz> planPrzejazdu;   // TODO Oddzielna klasa z interfejsem?
 
     public SportowiecPlanujacy(int id,
                              int poziomZaawansowania,

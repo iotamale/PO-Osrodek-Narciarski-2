@@ -28,6 +28,26 @@ public class HistoriaPrzejazdowSportowca {
     }
 
     /**
+     * Zwraca indeks ostatniego zarejestrowanego zjazdu
+     * lub 0, jeśli taki jescze nie nastąpił.
+     */
+    // TODO czy serio potrzebne?
+    public int indeksOstatniegoZjazduTrasa(Trasa trasa) {
+        final SortedSet<Integer> indeksy = pobierzPrzejazdy(trasa);
+
+        if (indeksy.isEmpty()) {
+            return 0;
+        }
+
+        return indeksy.last();
+    }
+
+    // TODO czy serio potrzebne?
+    public int licznikPrzejazdow() {
+        return licznikPrzejazdow;
+    }
+
+    /**
      * Funkcja odpowiedzialna za rejestrowanie historii przejazdów zgłaszanych przez inne Klasy.
      */
     public void obslozPrzejazd(Krawedz krawedz) {
