@@ -33,4 +33,7 @@ bin/
 *.log
 *.tex
 *.pdf
+katalogMapki
 katalogMapki*/
+katalogPdf/*
+katalogPdf

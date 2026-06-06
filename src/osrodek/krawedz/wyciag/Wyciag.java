@@ -153,6 +153,7 @@ public class Wyciag extends Krawedz {
     @Override
     public ArrayList<String> generujOpisMapkaStatystyk() {
         ArrayList<String> linie = new ArrayList<>();
+        // TODO zaimplementować
         linie.add("placeholder!");
         return linie;
     }
