@@ -8,6 +8,7 @@ import osrodek.Wezel;
 import osrodek.krawedz.Krawedz;
 import osrodek.krawedz.Trasa;
 import osrodek.krawedz.wyciag.Wyciag;
+import sportowcy.sportowcy_planujacy.PrzeszukiwanieBfs;
 import sportowcy.sportowcy_planujacy.PrzeszukiwanieGrafu;
 
 import java.util.Queue;
@@ -67,7 +68,7 @@ public class TestyPrzeszukiwaniaGrafu {
 
     @Test
     public void testSciezka0Do4() {
-        final PrzeszukiwanieGrafu bfs = new PrzeszukiwanieGrafu(w[0]);
+        final PrzeszukiwanieGrafu bfs = new PrzeszukiwanieBfs(w[0]);
 
         assertEquals(3, bfs.pobierzOdleglosc(w[4]));
 
@@ -83,7 +84,7 @@ public class TestyPrzeszukiwaniaGrafu {
 
     @Test
     void testBezposredniaSciezka3Do1() {
-        PrzeszukiwanieGrafu bfs = new PrzeszukiwanieGrafu(w[3]);
+        final PrzeszukiwanieGrafu bfs = new PrzeszukiwanieBfs(w[3]);
 
         assertEquals(1, bfs.pobierzOdleglosc(w[1]));
 
@@ -97,7 +98,7 @@ public class TestyPrzeszukiwaniaGrafu {
 
     @Test
     void testPustaSciezka2DoSamegoSiebie() {
-        final PrzeszukiwanieGrafu bfs = new PrzeszukiwanieGrafu(w[2]);
+        final PrzeszukiwanieGrafu bfs = new PrzeszukiwanieBfs(w[2]);
 
         assertEquals(0, bfs.pobierzOdleglosc(w[2]));
 
@@ -108,7 +109,7 @@ public class TestyPrzeszukiwaniaGrafu {
 
     @Test
     void testPodwojnyWybor4Do3() {
-        final PrzeszukiwanieGrafu bfs = new PrzeszukiwanieGrafu(w[4]);
+        final PrzeszukiwanieGrafu bfs = new PrzeszukiwanieBfs(w[4]);
 
         assertEquals(2, bfs.pobierzOdleglosc(w[3]));
 

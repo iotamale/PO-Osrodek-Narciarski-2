@@ -42,7 +42,7 @@ public class PlanPrzejazdu {
      * porządanej przez niego trasy.
      */
     public void przygotuj(Wezel obecny, Osrodek osrodek) {
-        final PrzeszukiwanieGrafu bfs = new PrzeszukiwanieGrafu(obecny);
+        final PrzeszukiwanieGrafu bfs = new PrzeszukiwanieBfs(obecny);
         final Trasa wymarzonaTrasa = sportowiec.znajdzWymarzonaTrase(osrodek, bfs);
 
         if (wymarzonaTrasa != null) {
