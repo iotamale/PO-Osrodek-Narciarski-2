@@ -8,6 +8,7 @@ import osrodek.Osrodek;
 import osrodek.Wezel;
 import osrodek.krawedz.Trasa;
 import osrodek.krawedz.wyciag.Wyciag;
+import sportowcy.historia_przejazdow.HistoriaPrzejazdowSportowca;
 
 public abstract class Sportowiec {
 

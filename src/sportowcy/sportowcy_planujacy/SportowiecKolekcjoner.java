@@ -38,5 +38,6 @@ public class SportowiecKolekcjoner extends SportowiecPlanujacy {
                     .thenComparing(Comparator.comparingDouble(this::lacznaAtrakcyjnosc).reversed())
                 ).orElse(null);
     }
+    // TODO comparator oddzielny plik
 
 }

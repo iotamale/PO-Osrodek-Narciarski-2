@@ -7,10 +7,9 @@ import kadra.mapki.styl.StylKrawedzi;
 import kadra.mapki.styl.StylLinii;
 import kadra.mapki.styl.StylWezla;
 import osrodek.Wezel;
-import osrodek.krawedz.Krawedz;
 import osrodek.krawedz.Trasa;
 import osrodek.krawedz.wyciag.Wyciag;
-import sportowcy.HistoriaPrzejazdowSportowca;
+import sportowcy.historia_przejazdow.HistoriaPrzejazdowSportowca;
 import sportowcy.Sportowiec;
 import wczytywacz.DaneWejsciowe;
 

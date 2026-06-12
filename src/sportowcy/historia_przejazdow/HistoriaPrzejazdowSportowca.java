@@ -1,0 +1,71 @@
+package sportowcy.historia_przejazdow;
+
+import osrodek.Osrodek;
+import osrodek.krawedz.Krawedz;
+import osrodek.krawedz.Trasa;
+
+import java.util.*;
+
+public class HistoriaPrzejazdowSportowca {
+
+    private final Map<Krawedz, RejestrHistorii> historia;
+    private int licznikPrzejazdow;
+
+    public HistoriaPrzejazdowSportowca() {
+        historia = new HashMap<>();
+        licznikPrzejazdow = 0;
+    }
+
+    /**
+     * Zwraca rejestr przejazdów dla danej krawędzi.
+     */
+    private RejestrHistorii pobierzRejestr(Krawedz krawedz) {
+        return historia.getOrDefault(krawedz, new RejestrHistorii());
+    }
+
+    public int liczbaPrzejazdowKrawedzia(Krawedz krawedz) {
+        return pobierzRejestr(krawedz).rozmiar();
+    }
+
+    /**
+     * Zwraca indeks ostatniego zarejestrowanego zjazdu
+     * lub 0, jeśli taki jescze nie nastąpił.
+     */
+    public int indeksOstatniegoZjazduTrasa(Trasa trasa) {
+        return pobierzRejestr(trasa).indeksOstatniegoWpisu();
+    }
+
+    public int licznikPrzejazdow() {
+        return licznikPrzejazdow;
+    }
+
+    /**
+     * Funkcja odpowiedzialna za rejestrowanie historii przejazdów zgłaszanych przez inne Klasy.
+     */
+    public void obslozPrzejazd(Krawedz krawedz) {
+        licznikPrzejazdow++;
+
+        historia.putIfAbsent(krawedz, new RejestrHistorii());
+        final RejestrHistorii rejestr = historia.get(krawedz);
+        assert rejestr != null : "Blad pobrania wartosci z setu.";
+
+        rejestr.dodaj(licznikPrzejazdow);
+    }
+
+    /**
+     * Zwraca etykietę dla kreatora mapki sportowców.
+     */
+    public ArrayList<String> stringDlaKrawedzi(Krawedz krawedz) {
+        final StringBuilder sb = new StringBuilder();
+        final RejestrHistorii rejestr = pobierzRejestr(krawedz);
+
+        sb.append(krawedz);
+        sb.append(String.format("(%d): ", rejestr.rozmiar()));
+        sb.append(rejestr);
+
+        final ArrayList<String> lista = new ArrayList<>();
+        lista.add(sb.toString());
+        return lista;
+    }
+
+}
