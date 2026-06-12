@@ -7,6 +7,8 @@ import osrodek.Osrodek;
 import osrodek.Wezel;
 import osrodek.krawedz.Trasa;
 import sportowcy.Sportowiec;
+import sportowcy.sportowcy_planujacy.przeszukiwanie_grafu.PlanPrzejazdu;
+import sportowcy.sportowcy_planujacy.przeszukiwanie_grafu.PrzeszukiwanieGrafu;
 
 public abstract class SportowiecPlanujacy extends Sportowiec {
 
@@ -30,7 +32,7 @@ public abstract class SportowiecPlanujacy extends Sportowiec {
     /**
      * Funkcja odpowiedzialna za wyznaczenie najlepszej trasy dla planującego sportowca.
      */
-    protected abstract Trasa znajdzWymarzonaTrase(Osrodek osrodek, PrzeszukiwanieGrafu bfs);
+    public abstract Trasa znajdzWymarzonaTrase(Osrodek osrodek, PrzeszukiwanieGrafu bfs);
 
     @Override
     public Zdarzenie nastepnyKrok(Moment moment, Wezel obecnyWezel, Osrodek osrodek) {

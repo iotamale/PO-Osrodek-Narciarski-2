@@ -5,6 +5,7 @@ import losowosc.MaszynaLosujaca;
 import osrodek.Osrodek;
 import osrodek.Wezel;
 import osrodek.krawedz.Trasa;
+import sportowcy.sportowcy_planujacy.przeszukiwanie_grafu.PrzeszukiwanieGrafu;
 
 import java.util.Arrays;
 import java.util.Comparator;
@@ -26,7 +27,7 @@ public class SportowiecZachlanny extends SportowiecPlanujacy {
     }
 
     @Override
-    protected Trasa znajdzWymarzonaTrase(Osrodek osrodek, PrzeszukiwanieGrafu bfs) {
+    public Trasa znajdzWymarzonaTrase(Osrodek osrodek, PrzeszukiwanieGrafu bfs) {
         return Arrays.stream(osrodek.trasy())
                 // Bierzemy tylko osiagalne trasy
                 .filter(trasa -> bfs.pobierzOdleglosc(trasa.poczatek()) != -1)
