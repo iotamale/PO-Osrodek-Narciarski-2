@@ -32,7 +32,6 @@ public class SportowiecLokalny extends Sportowiec {
     public Zdarzenie nastepnyKrok(Moment moment, Wezel obecnyWezel, Osrodek osrodek) {
         final boolean czySpontaniczna = czyNastepnyKrokLosowy();
 
-        // TODO - wydzielenie abstrakcji na podejmijSpontanicznaDecyzje itd?
         if (czySpontaniczna) {
             return podejmijSpontanicznaDecyzje(moment, obecnyWezel);
         } else {

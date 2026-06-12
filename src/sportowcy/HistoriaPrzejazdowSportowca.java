@@ -31,7 +31,6 @@ public class HistoriaPrzejazdowSportowca {
      * Zwraca indeks ostatniego zarejestrowanego zjazdu
      * lub 0, jeśli taki jescze nie nastąpił.
      */
-    // TODO czy serio potrzebne?
     public int indeksOstatniegoZjazduTrasa(Trasa trasa) {
         final SortedSet<Integer> indeksy = pobierzPrzejazdy(trasa);
 
@@ -42,7 +41,6 @@ public class HistoriaPrzejazdowSportowca {
         return indeksy.last();
     }
 
-    // TODO czy serio potrzebne?
     public int licznikPrzejazdow() {
         return licznikPrzejazdow;
     }

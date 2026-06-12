@@ -9,7 +9,7 @@ public class MiernikZnudzenia {
 
     private final double beta;
     private final Map<Trasa, Double> historiaZnudzenia;
-    private final Map<Trasa, Integer> ostatniaAktulizacja;  // todo czy nie lepiej korzystac z historii?
+    private final Map<Trasa, Integer> ostatniaAktulizacja;
     private int globalnyLicznikZjazdow;
 
     public MiernikZnudzenia(double beta) {
@@ -20,7 +20,7 @@ public class MiernikZnudzenia {
     }
 
     /**
-     * Zwraca aktualne znudzenie.
+     * Zwraca aktualne znudzenie określoną trasą.
      */
     public double pobierzZnudzenie(Trasa trasa) {
         final double poprzZnudzenie = historiaZnudzenia.getOrDefault(trasa, 0.0);
@@ -32,7 +32,7 @@ public class MiernikZnudzenia {
     }
 
     /**
-     * Aktulizuje stan PO zjechaniu daną trasą.
+     * Aktulizuje stan znudzenia po zjechaniu daną trasą.
      */
     public void zglosZjazdTrasa(Trasa trasa) {
         final double znudzeniePrzed = pobierzZnudzenie(trasa);
