@@ -21,6 +21,9 @@ public class PlanPrzejazdu {
         this.sportowiec = sportowiec;
     }
 
+    /**
+     * Zwraca true, jeśli plan przejazdu jest pusty.
+     */
     public boolean czyPusta() {
         return plan.isEmpty();
     }
@@ -39,7 +42,7 @@ public class PlanPrzejazdu {
     }
 
     /**
-     * Układa nowy plan przejazdu dla SportowcaPlanującego dla
+     * Układa nowy plan przejazdu dla SportowcaPlanującego do
      * porządanej przez niego trasy.
      */
     public void przygotuj(Wezel obecny, Osrodek osrodek) {

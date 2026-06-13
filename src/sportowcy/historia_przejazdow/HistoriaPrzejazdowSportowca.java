@@ -8,6 +8,7 @@ import java.util.*;
 
 public class HistoriaPrzejazdowSportowca {
 
+    // RejestrHistorii przechowuje indeksy przejazdów daną krawędzia.
     private final Map<Krawedz, RejestrHistorii> historia;
     private int licznikPrzejazdow;
 
@@ -18,6 +19,7 @@ public class HistoriaPrzejazdowSportowca {
 
     /**
      * Zwraca rejestr przejazdów dla danej krawędzi.
+     * Jeśli rejestr nie jest jeszcze zmapowany, to zwraca pusty rejestr.
      */
     private RejestrHistorii pobierzRejestr(Krawedz krawedz) {
         return historia.getOrDefault(krawedz, new RejestrHistorii());
