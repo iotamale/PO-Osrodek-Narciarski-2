@@ -41,6 +41,9 @@ public abstract class Krawedz {
         return dlugosc;
     }
 
+    /**
+     * Generuje "ładne" statystyki wypisywane dla użytkownika do dziennika.
+     */
     public abstract String wypiszStatystyki();
 
     public abstract Zdarzenie zdarzenieNastepnegoKroku(Moment moment, Sportowiec sportowiec);

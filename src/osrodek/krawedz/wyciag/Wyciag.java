@@ -16,15 +16,15 @@ import java.util.ArrayList;
 public class Wyciag extends Krawedz {
 
     private static final Moment PIERWSZY_ODJAZD = new Moment(9, 0, 0);
-    private static final Moment OSTATNI_INTERESUJACY_ODJAZD = new Moment(14, 59, 59);
-    private static final int SEKUNDY_SYMULACJI = PIERWSZY_ODJAZD.roznicaBezwzgledna(OSTATNI_INTERESUJACY_ODJAZD);
+    private static final Moment OSTATNI_ODJAZD = new Moment(15, 0, 0);
+    private static final int CZAS_SYMULACJI_S = PIERWSZY_ODJAZD.roznicaBezwzglednaWSekundach(OSTATNI_ODJAZD);
 
     private final Interwal odstepMiedzyOdjazdami;
     private final int ladownosc;
     private final KolejkaSportowcow obecnaKolejka;
     private int lacznaLiczbaPasazerow;
     private int maksDlugoscKolejki;
-    private long sumaDlugosciKolejki; // TODO
+    private long sumaDlugosciKolejki;
     private Moment ostatniaOperacjaNaKolejce;
 
     public Wyciag(int id,
@@ -41,7 +41,9 @@ public class Wyciag extends Krawedz {
         this.odstepMiedzyOdjazdami = odstepMiedzyOdjazdami;
         this.ladownosc = ladownosc;
         obecnaKolejka = new BuforCyklicznySportowcow();
-        lacznaLiczbaPasazerow = maksDlugoscKolejki = 0;
+
+        lacznaLiczbaPasazerow = 0;
+        maksDlugoscKolejki = 0;
         sumaDlugosciKolejki = 0;
         ostatniaOperacjaNaKolejce = PIERWSZY_ODJAZD;
     }
@@ -55,27 +57,27 @@ public class Wyciag extends Krawedz {
     }
 
     /**
-     * Funkcja odpowiedzialna za obsługę sum długości kolejki.
-     * Jeśli moment wywołania.equals(ostatniaOperacjaNaKolejce), to oznacza to, że
-     * operacja dzieje sie w tej samej sekundzie co poprzednia. Dopiero pierwsza
-     * operacja z "nastepnej" sekundy zaaktulizuje licznik.
+     * Funkcja odpowiedzialna za aktulizacje statystyk kolejki.
      */
-    private void obslozSumeDlugKolejki(Moment moment) {
-        if (moment.equals(ostatniaOperacjaNaKolejce)) {
+    private void zaaktulizujStatystykiKolejki(Moment moment) {
+        final int mineloSekund = moment.roznicaBezwzglednaWSekundach(ostatniaOperacjaNaKolejce);
+
+        if (mineloSekund == 0) {
             return;
         }
 
-        final int roznica = moment.roznicaBezwzgledna(ostatniaOperacjaNaKolejce);
-        sumaDlugosciKolejki += (long) obecnaKolejka.rozmiar() * roznica;
-
+        sumaDlugosciKolejki += (long) mineloSekund * obecnaKolejka.rozmiar();
         ostatniaOperacjaNaKolejce = moment;
     }
 
     public void dodajDoKolejki(Sportowiec sportowiec, Moment moment) {
-        obslozSumeDlugKolejki(moment);
-
+        zaaktulizujStatystykiKolejki(moment);
         obecnaKolejka.dodaj(sportowiec);
-        maksDlugoscKolejki = Math.max(maksDlugoscKolejki, obecnaKolejka.rozmiar());
+
+        final int obecnyRozmiar = obecnaKolejka.rozmiar();
+        if (obecnyRozmiar > maksDlugoscKolejki) {
+            maksDlugoscKolejki = obecnyRozmiar;
+        }
     }
 
     /**
@@ -84,7 +86,7 @@ public class Wyciag extends Krawedz {
      * 2. Zdarzenia reprezentujące dotarcie do końca wyciagu sportowców, którzy załapali się na obecny odjazd.
      */
     public Zdarzenie[] odjazd(Moment moment, Dziennik dziennik) {
-        obslozSumeDlugKolejki(moment);
+        zaaktulizujStatystykiKolejki(moment);   // Aktulizujemy przed zdjęciem z kolejki.
 
         Sportowiec[] odjezdzajacySportowcy = obecnaKolejka.zdejmij(Math.min(obecnaKolejka.rozmiar(), ladownosc));
 
@@ -108,23 +110,35 @@ public class Wyciag extends Krawedz {
         return noweZdarzenia;
     }
 
-    private double zaokrDoDwoch(double x) {
-        return (int) (x * 100) / 100.0;
+    /**
+     * Zwraca średnią długość kolejki zaokrągloną do najbliższej liczby całkowitej.
+     */
+    private int sredniaDlugoscKolejki() {
+        return (int) Math.round((double) sumaDlugosciKolejki / CZAS_SYMULACJI_S);
     }
 
-    private double procentZajetychMiejsc() {
-        final int ilePrzejazdow = (odstepMiedzyOdjazdami.sekundy() / SEKUNDY_SYMULACJI) + 1;
-        return zaokrDoDwoch((double) lacznaLiczbaPasazerow / (ilePrzejazdow * ladownosc));
+    /**
+     * Zwraca ilość wjazdów, które są teoretycznie możliwe w godzinach pracy wyciągu.
+     */
+    private int mozliweWjazdy() {
+        return (CZAS_SYMULACJI_S / odstepMiedzyOdjazdami.sekundy()) * ladownosc;
     }
 
-    private double sredniaDlugoscKolejki() {
-        return zaokrDoDwoch((double) sumaDlugosciKolejki / (SEKUNDY_SYMULACJI + 1));
+    /**
+     * Zwraca procent zajętych miejsc na wyciągu w zaokręgleniu do liczby całkowitej.
+     */
+    private int procentZajetychMiejsc() {
+        return (int) Math.round((double) lacznaLiczbaPasazerow / mozliweWjazdy() * 100);
     }
 
-    // TODO
+    /**
+     * Generuje "ładne" statystyki wypisywane dla użytkownika do dziennika.
+     */
     @Override
     public String wypiszStatystyki() {
-        return String.format("Maks długość kolejki: %d\nŚrednia długość kolejki: %f\nŁączna liczba pasażerów: %d\nProcent zajętych miejsc: %f",
+        zaaktulizujStatystykiKolejki(OSTATNI_ODJAZD);
+
+        return String.format("Maks długość kolejki: %d\nŚrednia długość kolejki: %d\nŁączna liczba pasażerów: %d\nProcent zajętych miejsc: %d",
                 maksDlugoscKolejki, sredniaDlugoscKolejki(), lacznaLiczbaPasazerow, procentZajetychMiejsc());
     }
 
@@ -153,8 +167,8 @@ public class Wyciag extends Krawedz {
     @Override
     public ArrayList<String> generujOpisMapkaStatystyk() {
         ArrayList<String> linie = new ArrayList<>();
-        // TODO zaimplementować
-        linie.add("placeholder!");
+        linie.add(String.format("w%d: kol: %d(śr), %d(maks)", id(), sredniaDlugoscKolejki(), maksDlugoscKolejki));
+        linie.add(String.format("wjazdy: %d / %d (%d%%)", lacznaLiczbaPasazerow, mozliweWjazdy(), procentZajetychMiejsc()));
         return linie;
     }
 
@@ -162,4 +176,5 @@ public class Wyciag extends Krawedz {
     public String toString() {
         return String.format("Wyciąg nr %d", id());
     }
+
 }

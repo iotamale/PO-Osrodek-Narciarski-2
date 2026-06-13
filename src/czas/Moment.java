@@ -53,7 +53,10 @@ public class Moment implements Comparable<Moment> {
         return new Moment(godzina, minuta, sekundy);
     }
 
-    public int roznicaBezwzgledna(Moment inny) {
+    /**
+     * Zwraca bezgwlędną różnicę dwóch momentów wyrażoną w sekundach.
+     */
+    public int roznicaBezwzglednaWSekundach(Moment inny) {
         return Math.abs(this.sekundy() - inny.sekundy());
     }
 
