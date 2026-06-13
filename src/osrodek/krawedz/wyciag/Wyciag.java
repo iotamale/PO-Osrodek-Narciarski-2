@@ -160,6 +160,6 @@ public class Wyciag extends Krawedz {
 
     @Override
     public String toString() {
-        return String.format("w%d", id());
+        return String.format("Wyciąg nr %d", id());
     }
 }

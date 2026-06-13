@@ -100,6 +100,6 @@ public class Trasa extends Krawedz {
 
     @Override
     public String toString() {
-        return String.format("t%d", id());
+        return String.format("Trasa nr %d", id());
     }
 }
