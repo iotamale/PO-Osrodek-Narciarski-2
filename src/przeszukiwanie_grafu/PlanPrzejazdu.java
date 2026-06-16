@@ -1,4 +1,4 @@
-package sportowcy.sportowcy_planujacy.przeszukiwanie_grafu;
+package przeszukiwanie_grafu;
 
 import czas.Moment;
 import kolejkaZdarzen.zdarzenia.Zdarzenie;

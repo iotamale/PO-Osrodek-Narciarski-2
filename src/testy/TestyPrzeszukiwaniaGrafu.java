@@ -8,8 +8,8 @@ import osrodek.Wezel;
 import osrodek.krawedz.Krawedz;
 import osrodek.krawedz.Trasa;
 import osrodek.krawedz.wyciag.Wyciag;
-import sportowcy.sportowcy_planujacy.przeszukiwanie_grafu.PrzeszukiwanieBfs;
-import sportowcy.sportowcy_planujacy.przeszukiwanie_grafu.PrzeszukiwanieGrafu;
+import przeszukiwanie_grafu.PrzeszukiwanieBfs;
+import przeszukiwanie_grafu.PrzeszukiwanieGrafu;
 
 import java.util.Queue;
 import static org.junit.jupiter.api.Assertions.*;
