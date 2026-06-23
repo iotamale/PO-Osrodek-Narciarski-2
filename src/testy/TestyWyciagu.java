@@ -16,6 +16,10 @@ import osrodek.krawedz.wyciag.Wyciag;
 import sportowcy.Sportowiec;
 import sportowcy.SportowiecLokalny;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class TestyWyciagu {
@@ -50,6 +54,25 @@ public class TestyWyciagu {
         }
     }
 
+    /**
+     * Funkcja sprawdza, czy zbiór sportowców faktycznie zabranych jest zgodny z oczekiwanym.
+     * Może okazać się, że implementacja przemiesza kolejność poprawnie wybranych sportowców, wtedy
+     * zwykłe przyrównanie kolejnych elementów tablicy zwraca błędnie błąd w testach.
+     */
+    private void sprawdzPasazerow(Zdarzenie[] zdarzenia, Sportowiec[] oczekiwaniSportowcy) {
+        final List<Sportowiec> oczekiwani = Arrays.asList(oczekiwaniSportowcy);
+        final List<Sportowiec> faktyczni = new ArrayList<>();
+
+        for (int i = 1; i < zdarzenia.length; i++) {
+            assertInstanceOf(DotarcieDoWezla.class, zdarzenia[i]);
+            faktyczni.add(((DotarcieDoWezla) zdarzenia[i]).sportowiec());
+        }
+
+        assertEquals(oczekiwani.size(), faktyczni.size(), "Liczba faktycznych sportowcow nie zgadza się z oczekiwaną");
+        assertTrue(faktyczni.containsAll(oczekiwani), "Brakuje niektórych oczekiwanych sportowców.");
+        assertTrue(oczekiwani.containsAll(faktyczni), "W zdarzeniach są nieoczekiwani sportowcy");
+    }
+
     @Test
     public void testPonadLimit3() {
         final int iluDodajemy = 4;
@@ -61,12 +84,7 @@ public class TestyWyciagu {
         assertEquals(3 + 1, zdarzenia.length);
         assertInstanceOf(OdjazdWyciagu.class, zdarzenia[0]);
 
-        for (int i = 0; i < 3; i++) {
-            assertInstanceOf(DotarcieDoWezla.class, zdarzenia[1 + i]);
-            // TODO - teoretycznie wewnatrz 3 poprawnie wybranych sportowcow kolejnosc nie musi byc taka sama
-            // TODO   jak przy wrzucenie do kolejki.
-            assertEquals(sportowcy[i], ((DotarcieDoWezla) zdarzenia[1 + i]).sportowiec());
-        }
+        sprawdzPasazerow(zdarzenia, new Sportowiec[]{sportowcy[0], sportowcy[1], sportowcy[2]});
 
         assertEquals(3, wyciag.lacznaLiczbaPasazerow());
     }
@@ -81,11 +99,7 @@ public class TestyWyciagu {
         assertEquals(2 + 1, zdarzenia.length);
         assertInstanceOf(OdjazdWyciagu.class, zdarzenia[0]);
 
-        for (int i = 0; i < 2; i++) {
-            assertInstanceOf(DotarcieDoWezla.class, zdarzenia[1 + i]);
-            // TODO tutaj tez kolejnosc nie musi byc zachowana
-            assertEquals(sportowcy[i], ((DotarcieDoWezla) zdarzenia[1 + i]).sportowiec());
-        }
+        sprawdzPasazerow(zdarzenia, new Sportowiec[]{sportowcy[0], sportowcy[1]});
 
         assertEquals(2, wyciag.lacznaLiczbaPasazerow());
     }
