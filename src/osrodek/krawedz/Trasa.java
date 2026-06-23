@@ -82,7 +82,7 @@ public class Trasa extends Krawedz {
     @Override
     public ArrayList<String> generujOpisMapkaParametrow() {
         ArrayList<String> linie = new ArrayList<>();
-        linie.add(String.format("t%d: poziom: %d, czas: %ds", id(), poziomTrudnosci, dlugosc().sekundy()));
+        linie.add(etykietaPodMapke() + String.format(": poziom: %d, czas: %ds", poziomTrudnosci, dlugosc().sekundy()));
         linie.add(String.format("odporność: %.2f, %.5f", bazowaAtrakcyjnosc, odpornoscNaNierownosci));
         return linie;
     }
@@ -93,9 +93,14 @@ public class Trasa extends Krawedz {
     @Override
     public ArrayList<String> generujOpisMapkaStatystyk() {
         ArrayList<String> linie = new ArrayList<>();
-        linie.add(String.format("t%d: śnieg: %.2f", id(), wyrownanieNawierzchni()));
+        linie.add(etykietaPodMapke()+ String.format(": śnieg: %.2f", wyrownanieNawierzchni()));
         linie.add(String.format("zjazdy: %d", liczbaZjazdow));
         return linie;
+    }
+
+    @Override
+    protected String oznaczenieRodzaju() {
+        return "t";
     }
 
     @Override

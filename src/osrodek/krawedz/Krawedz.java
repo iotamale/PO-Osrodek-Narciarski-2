@@ -58,6 +58,18 @@ public abstract class Krawedz {
      */
     public abstract ArrayList<String> generujOpisMapkaStatystyk();
 
+    /**
+     * Zwraca oznaczenie pod etykiety mapek (wyciąg - w, trasa - t).
+     */
+    protected abstract String oznaczenieRodzaju();
+
+    /**
+     * Generuje początek etykiety pod mapkę (np. "w1")
+     */
+    public String etykietaPodMapke() {
+        return oznaczenieRodzaju() + id;
+    }
+
     @Override
     public String toString() {
         return "Krawedz [id=" + id + ", poczatek=" + poczatek + ", koniec=" + koniec + ", dlugosc=" + dlugosc + "]";

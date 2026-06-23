@@ -61,7 +61,7 @@ public class HistoriaPrzejazdowSportowca {
         final StringBuilder sb = new StringBuilder();
         final RejestrHistorii rejestr = pobierzRejestr(krawedz);
 
-        sb.append(krawedz);
+        sb.append(krawedz.etykietaPodMapke());
         sb.append(String.format("(%d): ", rejestr.rozmiar()));
         sb.append(rejestr);
 

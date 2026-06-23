@@ -156,7 +156,7 @@ public class Wyciag extends Krawedz {
     @Override
     public ArrayList<String> generujOpisMapkaParametrow() {
         ArrayList<String> linie = new ArrayList<>();
-        linie.add(String.format("w%d: %d os. co %ds", id(), ladownosc, odstepMiedzyOdjazdami.sekundy()));
+        linie.add(etykietaPodMapke() + String.format(": %d os. co %ds", ladownosc, odstepMiedzyOdjazdami.sekundy()));
         linie.add(String.format("czas: %ds", dlugosc().sekundy()));
         return linie;
     }
@@ -167,9 +167,14 @@ public class Wyciag extends Krawedz {
     @Override
     public ArrayList<String> generujOpisMapkaStatystyk() {
         ArrayList<String> linie = new ArrayList<>();
-        linie.add(String.format("w%d: kol: %d(śr), %d(maks)", id(), sredniaDlugoscKolejki(), maksDlugoscKolejki));
+        linie.add(etykietaPodMapke() + String.format(": kol: %d(śr), %d(maks)", sredniaDlugoscKolejki(), maksDlugoscKolejki));
         linie.add(String.format("wjazdy: %d / %d (%d%%)", lacznaLiczbaPasazerow, mozliweWjazdy(), procentZajetychMiejsc()));
         return linie;
+    }
+
+    @Override
+    protected String oznaczenieRodzaju() {
+        return "w";
     }
 
     @Override
