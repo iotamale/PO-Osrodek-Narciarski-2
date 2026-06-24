@@ -10,6 +10,10 @@ import osrodek.Osrodek;
 import osrodek.krawedz.wyciag.Wyciag;
 import sportowcy.Sportowiec;
 
+import java.util.List;
+import java.util.stream.Stream;
+import java.util.Arrays;
+
 public class Symulacja {
 
     private static final Moment POCZATEK_DNIA = new Moment(9, 0, 0);
@@ -19,7 +23,7 @@ public class Symulacja {
     public void przeprowadzSymulacje(Dziennik dziennik,
         KolejkaZdarzen kolejkaZdarzen,
         Osrodek osrodek,
-         Sportowiec[] sportowcy) {
+         List<Sportowiec> sportowcy) {
         przygotujPoczatkoweZdarzenia(kolejkaZdarzen, osrodek, sportowcy);
         glownaPetla(kolejkaZdarzen, dziennik, osrodek);
         zbierzStatystyki(osrodek, dziennik);
@@ -30,7 +34,7 @@ public class Symulacja {
      * 1. Początek dnia na stoku dla każdego sportowca zgodnie z jego momentem startu.
      * 2. Pierwszy odjazd wagonika dla każdego wyciągu dokładnie o 9:00:00.
      */
-    private void przygotujPoczatkoweZdarzenia(KolejkaZdarzen kolejkaZdarzen, Osrodek osrodek, Sportowiec[] sportowcy) {
+    private void przygotujPoczatkoweZdarzenia(KolejkaZdarzen kolejkaZdarzen, Osrodek osrodek, List<Sportowiec> sportowcy) {
         for (Sportowiec sportowiec : sportowcy) {
             kolejkaZdarzen.dodaj(new PoczatekDnia(sportowiec.momentStartu(), sportowiec.wezelStartowy(), sportowiec));
         }
@@ -63,14 +67,14 @@ public class Symulacja {
      * Wypisuje statystyki końcowe symulacji.
      */
     private void zbierzStatystyki(Osrodek osrodek, Dziennik dziennik) {
-        String[][] statystyki = new String[osrodek.trasy().length + osrodek.wyciagi().length][2];
+        String[][] statystyki = new String[osrodek.trasy().size() + osrodek.wyciagi().size()][2];
 
-        for (int i = 0; i < osrodek.trasy().length; i++) {
-            statystyki[i] = new String[]{osrodek.trasy()[i].toString(), osrodek.trasy()[i].wypiszStatystyki()};
+        for (int i = 0; i < osrodek.trasy().size(); i++) {
+            statystyki[i] = new String[]{osrodek.trasy().get(i).toString(), osrodek.trasy().get(i).wypiszStatystyki()};
         }
-        for (int i = 0; i < osrodek.wyciagi().length; i++) {
-            statystyki[osrodek.trasy().length + i] = new String[]{osrodek.wyciagi()[i].toString(),
-                osrodek.wyciagi()[i].wypiszStatystyki()};
+        for (int i = 0; i < osrodek.wyciagi().size(); i++) {
+            statystyki[osrodek.trasy().size() + i] = new String[]{osrodek.wyciagi().get(i).toString(),
+                    osrodek.wyciagi().get(i).wypiszStatystyki()};
         }
 
         dziennik.dodajTabele(statystyki);

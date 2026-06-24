@@ -59,8 +59,7 @@ public class TestyWyciagu {
      * Może okazać się, że implementacja przemiesza kolejność poprawnie wybranych sportowców, wtedy
      * zwykłe przyrównanie kolejnych elementów tablicy zwraca błędnie błąd w testach.
      */
-    private void sprawdzPasazerow(Zdarzenie[] zdarzenia, Sportowiec[] oczekiwaniSportowcy) {
-        final List<Sportowiec> oczekiwani = Arrays.asList(oczekiwaniSportowcy);
+    private void sprawdzPasazerow(Zdarzenie[] zdarzenia, List<Sportowiec> oczekiwani) {
         final List<Sportowiec> faktyczni = new ArrayList<>();
 
         for (int i = 1; i < zdarzenia.length; i++) {
@@ -84,7 +83,7 @@ public class TestyWyciagu {
         assertEquals(3 + 1, zdarzenia.length);
         assertInstanceOf(OdjazdWyciagu.class, zdarzenia[0]);
 
-        sprawdzPasazerow(zdarzenia, new Sportowiec[]{sportowcy[0], sportowcy[1], sportowcy[2]});
+        sprawdzPasazerow(zdarzenia, List.of(sportowcy[0], sportowcy[1], sportowcy[2]));
 
         assertEquals(3, wyciag.lacznaLiczbaPasazerow());
     }
@@ -99,7 +98,7 @@ public class TestyWyciagu {
         assertEquals(2 + 1, zdarzenia.length);
         assertInstanceOf(OdjazdWyciagu.class, zdarzenia[0]);
 
-        sprawdzPasazerow(zdarzenia, new Sportowiec[]{sportowcy[0], sportowcy[1]});
+        sprawdzPasazerow(zdarzenia, List.of(sportowcy[0], sportowcy[1]));
 
         assertEquals(2, wyciag.lacznaLiczbaPasazerow());
     }

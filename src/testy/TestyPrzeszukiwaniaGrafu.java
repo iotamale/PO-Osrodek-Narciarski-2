@@ -11,6 +11,7 @@ import osrodek.krawedz.wyciag.Wyciag;
 import przeszukiwanie_grafu.PrzeszukiwanieBfs;
 import przeszukiwanie_grafu.PrzeszukiwanieGrafu;
 
+import java.util.List;
 import java.util.Queue;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -29,41 +30,41 @@ public class TestyPrzeszukiwaniaGrafu {
             w[i] = new Wezel(i, WYSOKOSCI[i], 0, 0, false);
         }
 
-        w[0].wychodzaceWyciagi(new Wyciag[]{
+        w[0].wychodzaceWyciagi(List.of(
                 new Wyciag(0, w[0], w[1], INTERWAL, INTERWAL, 10)
-        });
-        w[0].wychodzaceTrasy(new Trasa[]{});
+        ));
+        w[0].wychodzaceTrasy(List.of());
 
-        w[1].wychodzaceWyciagi(new Wyciag[]{});
-        w[1].wychodzaceTrasy(new Trasa[]{
+        w[1].wychodzaceWyciagi(List.of());
+        w[1].wychodzaceTrasy(List.of(
                 new Trasa(4, w[1], w[0], INTERWAL, 10, 1.0, 1.0),
                 new Trasa(5, w[1], w[2], INTERWAL, 10, 1.0, 1.0)
-        });
+        ));
 
-        w[2].wychodzaceWyciagi(new Wyciag[]{
+        w[2].wychodzaceWyciagi(List.of(
                 new Wyciag(1, w[2], w[4], INTERWAL, INTERWAL, 10),
                 new Wyciag(2, w[2], w[3], INTERWAL, INTERWAL, 10)
-        });
-        w[2].wychodzaceTrasy(new Trasa[]{
+        ));
+        w[2].wychodzaceTrasy(List.of(
                 new Trasa(6, w[2], w[0], INTERWAL, 10, 1.0, 1.0)
-        });
+        ));
 
-        w[3].wychodzaceWyciagi(new Wyciag[]{});
-        w[3].wychodzaceTrasy(new Trasa[]{
+        w[3].wychodzaceWyciagi(List.of());
+        w[3].wychodzaceTrasy(List.of(
                 new Trasa(7, w[3], w[1], INTERWAL, 10, 1.0, 1.0),
-                new Trasa(8, w[3], w[4], INTERWAL, 10, 1.0, 1.0),
-        });
+                new Trasa(8, w[3], w[4], INTERWAL, 10, 1.0, 1.0)
+        ));
 
-        w[4].wychodzaceWyciagi(new Wyciag[]{
+        w[4].wychodzaceWyciagi(List.of(
                 new Wyciag(3, w[4], w[5], INTERWAL, INTERWAL, 10)
-        });
-        w[4].wychodzaceTrasy(new Trasa[]{});
+        ));
+        w[4].wychodzaceTrasy(List.of());
 
-        w[5].wychodzaceWyciagi(new Wyciag[]{});
-        w[5].wychodzaceTrasy(new Trasa[]{
+        w[5].wychodzaceWyciagi(List.of());
+        w[5].wychodzaceTrasy(List.of(
                 new Trasa(10, w[5], w[3], INTERWAL, 10, 1.0, 1.0),
                 new Trasa(11, w[5], w[3], INTERWAL, 10, 1.0, 1.0)
-        });
+        ));
     }
 
     @Test

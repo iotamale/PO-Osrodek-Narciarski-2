@@ -27,7 +27,7 @@ public class SportowiecKolekcjoner extends SportowiecPlanujacy {
 
     @Override
     public Trasa znajdzWymarzonaTrase(Osrodek osrodek, PrzeszukiwanieGrafu bfs) {
-        return Arrays.stream(osrodek.trasy())
+        return osrodek.trasy().stream()
                 .filter(trasa -> bfs.pobierzOdleglosc(trasa.poczatek()) != -1)
                 .min(
                     // Min zjazdow

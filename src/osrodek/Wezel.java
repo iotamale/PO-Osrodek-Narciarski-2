@@ -1,5 +1,8 @@
 package osrodek;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import osrodek.krawedz.Trasa;
 import osrodek.krawedz.wyciag.Wyciag;
 
@@ -11,9 +14,9 @@ public class Wezel {
 
     private final boolean czyStartowy;
 
-    private Trasa[] wychodzaceTrasy = {};
+    private List<Trasa> wychodzaceTrasy;
 
-    private Wyciag[] wychodzaceWyciagi = {};
+    private List<Wyciag> wychodzaceWyciagi;
 
     private final int wspolrzednaX;
 
@@ -25,6 +28,8 @@ public class Wezel {
         this.wspolrzednaX = wspolrzednaX;
         this.wspolrzednaY = wspolrzednaY;
         this.czyStartowy = czyStartowy;
+        this.wychodzaceTrasy = new ArrayList<>();
+        this.wychodzaceWyciagi = new ArrayList<>();
     }
 
     public int id() {
@@ -47,19 +52,19 @@ public class Wezel {
         return czyStartowy;
     }
 
-    public Trasa[] wychodzaceTrasy() {
+    public List<Trasa> wychodzaceTrasy() {
         return wychodzaceTrasy;
     }
 
-    public Wyciag[] wychodzaceWyciagi() {
+    public List<Wyciag> wychodzaceWyciagi() {
         return wychodzaceWyciagi;
     }
 
-    public void wychodzaceTrasy(Trasa[] wychodzaceTrasy) {
+    public void wychodzaceTrasy(List<Trasa> wychodzaceTrasy) {
         this.wychodzaceTrasy = wychodzaceTrasy;
     }
 
-    public void wychodzaceWyciagi(Wyciag[] wychodzaceWyciagi) {
+    public void wychodzaceWyciagi(List<Wyciag> wychodzaceWyciagi) {
         this.wychodzaceWyciagi = wychodzaceWyciagi;
     }
 

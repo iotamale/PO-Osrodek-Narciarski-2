@@ -1,5 +1,7 @@
 package sportowcy;
 
+import java.util.List;
+
 import czas.Interwal;
 import czas.Moment;
 import kolejkaZdarzen.zdarzenia.Zdarzenie;
@@ -150,15 +152,15 @@ public abstract class Sportowiec {
      */
     protected Zdarzenie podejmijSpontanicznaDecyzje(Moment moment, Wezel obecnyWezel) {
         final MaszynaLosujaca maszynaLosujaca = maszynaLosujaca();
-        Trasa[] bezposrednieTrasy = obecnyWezel.wychodzaceTrasy();
-        Wyciag[] wyciagi = obecnyWezel.wychodzaceWyciagi();
+        List<Trasa> bezposrednieTrasy = obecnyWezel.wychodzaceTrasy();
+        List<Wyciag> wyciagi = obecnyWezel.wychodzaceWyciagi();
 
-        int losowyWybor = maszynaLosujaca.losowyInt(0, bezposrednieTrasy.length + wyciagi.length);
+        int losowyWybor = maszynaLosujaca.losowyInt(0, bezposrednieTrasy.size() + wyciagi.size());
 
-        if (losowyWybor < bezposrednieTrasy.length) {
-            return bezposrednieTrasy[losowyWybor].zdarzenieNastepnegoKroku(moment, this);
+        if (losowyWybor < bezposrednieTrasy.size()) {
+            return bezposrednieTrasy.get(losowyWybor).zdarzenieNastepnegoKroku(moment, this);
         } else {
-            return wyciagi[losowyWybor - bezposrednieTrasy.length].zdarzenieNastepnegoKroku(moment, this);
+            return wyciagi.get(losowyWybor - bezposrednieTrasy.size()).zdarzenieNastepnegoKroku(moment, this);
         }
     }
 

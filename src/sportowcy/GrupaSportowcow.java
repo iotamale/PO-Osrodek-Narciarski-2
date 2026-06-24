@@ -1,6 +1,8 @@
 package sportowcy;
 
 import czas.Interwal;
+import java.util.ArrayList;
+import java.util.List;
 
 public class GrupaSportowcow {
 
@@ -30,12 +32,15 @@ public class GrupaSportowcow {
         this.odstepMiedzySportowcami = odstepMiedzySportowcami;
     }
 
-    public Sportowiec[] podajSportowcow() {
-        Sportowiec[] sportowcy = new Sportowiec[krotnosc];
-        sportowcy[0] = schematSportowca;
+    public List<Sportowiec> podajSportowcow() {
+        List<Sportowiec> sportowcy = new ArrayList<>(krotnosc);
+        sportowcy.add(schematSportowca);
 
+        Sportowiec poprzedni = schematSportowca;
         for (int i = 1; i < krotnosc; i++) {
-            sportowcy[i] = sportowcy[i - 1].kopia(1, odstepMiedzySportowcami);
+            Sportowiec nowy = poprzedni.kopia(1, odstepMiedzySportowcami);
+            sportowcy.add(nowy);
+            poprzedni = nowy;
         }
 
         return sportowcy;

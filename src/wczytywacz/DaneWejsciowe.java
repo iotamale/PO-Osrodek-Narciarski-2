@@ -1,6 +1,9 @@
 package wczytywacz;
 
 import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Stream;
+import java.util.stream.Collectors;
 
 import osrodek.Osrodek;
 import osrodek.Wezel;
@@ -13,9 +16,9 @@ public class DaneWejsciowe {
 
     private final Osrodek osrodek;
 
-    private final Sportowiec[] sportowcy;
+    private final List<Sportowiec> sportowcy;
 
-    public DaneWejsciowe(Wezel[] wezly, Trasa[] trasy, Wyciag[] wyciagi, GrupaSportowcow[] grupySportowcow) {
+    public DaneWejsciowe(List<Wezel> wezly, List<Trasa> trasy, List<Wyciag> wyciagi, List<GrupaSportowcow> grupySportowcow) {
         for (final Wezel wezel : wezly) {
             wezel.wychodzaceTrasy(znajdzWychodzaceTrasy(trasy, wezel));
             wezel.wychodzaceWyciagi(znajdzWychodzaceWyciagi(wyciagi, wezel));
@@ -28,77 +31,30 @@ public class DaneWejsciowe {
         return osrodek;
     }
 
-    public Sportowiec[] sportowcy() {
+    public List<Sportowiec> sportowcy() {
         return sportowcy;
     }
 
-    private Trasa[] znajdzWychodzaceTrasy(Trasa[] trasy, Wezel wezel) {
-        int liczbaWychodzacychTras = 0;
-
-        for (Trasa trasa : trasy) {
-            if (trasa.poczatek().equals(wezel)) {
-                liczbaWychodzacychTras++;
-            }
-        }
-
-        Trasa[] wychodzaceTrasy = new Trasa[liczbaWychodzacychTras];
-        int i = 0;
-
-        for (Trasa trasa : trasy) {
-            if (trasa.poczatek().equals(wezel)) {
-                wychodzaceTrasy[i++] = trasa;
-            }
-        }
-
-        return wychodzaceTrasy;
+    private List<Trasa> znajdzWychodzaceTrasy(List<Trasa> trasy, Wezel wezel) {
+        return trasy.stream()
+                .filter(trasa -> trasa.poczatek().equals(wezel))
+                .toList();
     }
 
-    private Wyciag[] znajdzWychodzaceWyciagi(Wyciag[] wyciagi, Wezel wezel) {
-        int liczbaWychodzacychWyciagow = 0;
-
-        for (Wyciag wyciag : wyciagi) {
-            if (wyciag.poczatek().equals(wezel)) {
-                liczbaWychodzacychWyciagow++;
-            }
-        }
-
-        Wyciag[] wychodzaceWyciagi = new Wyciag[liczbaWychodzacychWyciagow];
-        int i = 0;
-
-        for (Wyciag wyciag : wyciagi) {
-            if (wyciag.poczatek().equals(wezel)) {
-                wychodzaceWyciagi[i++] = wyciag;
-            }
-        }
-
-        return wychodzaceWyciagi;
+    private List<Wyciag> znajdzWychodzaceWyciagi(List<Wyciag> wyciagi, Wezel wezel) {
+        return wyciagi.stream()
+                .filter(wyciag -> wyciag.poczatek().equals(wezel))
+                .toList();
     }
 
-    private Sportowiec[] przetworzGrupy(GrupaSportowcow[] grupySportowcow) {
-        int sumaSportowcow = 0;
-
-        for (GrupaSportowcow grupa : grupySportowcow) {
-            sumaSportowcow += grupa.krotnosc();
-        }
-
-        Sportowiec[] sportowcy = new Sportowiec[sumaSportowcow];
-
-        int obecneId = 0;
-
-        for (GrupaSportowcow grupa : grupySportowcow) {
-            Sportowiec[] sportowcyWGrupie = grupa.podajSportowcow();
-
-            for (Sportowiec sportowiec : sportowcyWGrupie) {
-                sportowcy[obecneId] = sportowiec;
-                obecneId++;
-            }
-        }
-
-        return sportowcy;
+    private List<Sportowiec> przetworzGrupy(List<GrupaSportowcow> grupySportowcow) {
+        return grupySportowcow.stream()
+                .flatMap(grupa -> grupa.podajSportowcow().stream())
+                .toList();
     }
 
     @Override
     public String toString() {
-        return "DaneWejsciowe [osrodek=" + osrodek + ", sportowcy=" + Arrays.toString(sportowcy) + "]";
+        return "DaneWejsciowe [osrodek=" + osrodek + ", sportowcy=" + sportowcy + "]";
     }
 }

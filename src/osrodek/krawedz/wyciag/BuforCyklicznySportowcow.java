@@ -1,6 +1,8 @@
 package osrodek.krawedz.wyciag;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import sportowcy.Sportowiec;
 
@@ -42,13 +44,13 @@ public class BuforCyklicznySportowcow implements KolejkaSportowcow {
     }
 
     @Override
-    public Sportowiec[] zdejmij(int ile) {
+    public List<Sportowiec> zdejmij(int ile) {
         assert ile <= rozmiar : String.format("Nie można zdjąć %d sportowców, kolejka ma rozmiar %d", ile, rozmiar);
 
-        Sportowiec[] doZdjecia = new Sportowiec[ile];
+        List<Sportowiec> doZdjecia = new ArrayList<>(ile);
 
         for (int i = 0; i < ile; i++) {
-            doZdjecia[i] = sportowcy[(poczatek + i) % sportowcy.length];
+            doZdjecia.add(sportowcy[(poczatek + i) % sportowcy.length]);
         }
 
         poczatek = (poczatek + ile) % sportowcy.length;

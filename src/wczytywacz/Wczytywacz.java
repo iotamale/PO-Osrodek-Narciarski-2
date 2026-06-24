@@ -1,5 +1,7 @@
 package wczytywacz;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 import czas.Interwal;
@@ -28,33 +30,33 @@ public class Wczytywacz {
     }
 
     public DaneWejsciowe wczytajWejscie() {
-        Wezel[] wezly = wczytajWezly();
-        Wyciag[] wyciagi = wczytajWyciagi(wezly);
-        Trasa[] trasy = wczytajTrasy(wezly);
-        GrupaSportowcow[] grupySportowcow = wczytajGrupySportowcow(wezly);
+        List<Wezel> wezly = wczytajWezly();
+        List<Wyciag> wyciagi = wczytajWyciagi(wezly);
+        List<Trasa> trasy = wczytajTrasy(wezly);
+        List<GrupaSportowcow> grupySportowcow = wczytajGrupySportowcow(wezly);
         return new DaneWejsciowe(wezly, trasy, wyciagi, grupySportowcow);
     }
 
-    private Wezel[] wczytajWezly() {
+    private List<Wezel> wczytajWezly() {
         int liczbaWezlow = scanner.nextInt();
 
-        Wezel[] wezly = new Wezel[liczbaWezlow];
+        List<Wezel> wezly = new ArrayList<>(liczbaWezlow);
 
         for (int id = 0; id < liczbaWezlow; id++) {
             int wysokosc = scanner.nextInt();
             int wspolrzednaX = scanner.nextInt();
             int wspolrzednaY = scanner.nextInt();
             boolean czyStartowy = scanner.findInLine("s") != null;
-            wezly[id] = new Wezel(id, wysokosc, wspolrzednaX, wspolrzednaY, czyStartowy);
+            wezly.add(new Wezel(id, wysokosc, wspolrzednaX, wspolrzednaY, czyStartowy));
         }
 
         return wezly;
     }
 
-    private Wyciag[] wczytajWyciagi(Wezel[] wezly) {
+    private List<Wyciag> wczytajWyciagi(List<Wezel> wezly) {
         int liczbaWyciagow = scanner.nextInt();
 
-        Wyciag[] wyciagi = new Wyciag[liczbaWyciagow];
+        List<Wyciag> wyciagi = new ArrayList<>(liczbaWyciagow);
 
         for (int id = 0; id < liczbaWyciagow; id++) {
             int poczatek = scanner.nextInt();
@@ -64,22 +66,22 @@ public class Wczytywacz {
             int czasPrzejazdu = scanner.nextInt();
 
             Wyciag wyciag = new Wyciag(id,
-                wezly[poczatek],
-                wezly[koniec],
+                wezly.get(poczatek),
+                wezly.get(koniec),
                 new Interwal(odstep),
                 new Interwal(czasPrzejazdu),
                 maksymalnaWielkoscGrupy);
 
-            wyciagi[id] = wyciag;
+            wyciagi.add(wyciag);
         }
 
         return wyciagi;
     }
 
-    private Trasa[] wczytajTrasy(Wezel[] wezly) {
+    private List<Trasa> wczytajTrasy(List<Wezel> wezly) {
         int liczbaTras = scanner.nextInt();
 
-        Trasa[] trasy = new Trasa[liczbaTras];
+        List<Trasa> trasy = new ArrayList<>(liczbaTras);
 
         for (int id = 0; id < liczbaTras; id++) {
             int poczatek = scanner.nextInt();
@@ -91,28 +93,29 @@ public class Wczytywacz {
             double odpornoscNaNierownosci = scanner.nextDouble();
 
             Trasa trasa = new Trasa(id,
-                wezly[poczatek],
-                wezly[koniec],
+                wezly.get(poczatek),
+                wezly.get(koniec),
                 dlugosc,
                 poziomTrudnosci,
                 bazowaAtrakcyjnosc,
                 odpornoscNaNierownosci);
 
-            trasy[id] = trasa;
+            trasy.add(trasa);
         }
 
         return trasy;
     }
 
-    private GrupaSportowcow[] wczytajGrupySportowcow(Wezel[] wezly) {
+    private List<GrupaSportowcow> wczytajGrupySportowcow(List<Wezel> wezly) {
         int nastepneId = 0;
         int liczbaGrup = scanner.nextInt();
 
-        GrupaSportowcow[] grupySportowcow = new GrupaSportowcow[liczbaGrup];
+        List<GrupaSportowcow> grupySportowcow = new ArrayList<>(liczbaGrup);
 
         for (int grupa = 0; grupa < liczbaGrup; grupa++) {
-            grupySportowcow[grupa] = wczytajGrupeSportowcow(nastepneId, wezly);
-            nastepneId += grupySportowcow[grupa].krotnosc();
+            GrupaSportowcow nowaGrupa = wczytajGrupeSportowcow(nastepneId, wezly);
+            grupySportowcow.add(nowaGrupa);
+            nastepneId += nowaGrupa.krotnosc();
         }
 
         return grupySportowcow;
@@ -137,7 +140,7 @@ public class Wczytywacz {
 
     }
 
-    private GrupaSportowcow wczytajGrupeSportowcow(int nastepneId, Wezel[] wezly) {
+    private GrupaSportowcow wczytajGrupeSportowcow(int nastepneId, List<Wezel> wezly) {
         int liczbaSportowcowWGrupie = scanner.nextInt();
         int poziomZaawansowania = scanner.nextInt();
         double wspolczynnikSpontanicznosci = scanner.nextDouble();
@@ -159,7 +162,7 @@ public class Wczytywacz {
         }
 
         final Sportowiec pierwszySportowiec = stworzPierwszegoSportowca(oznaczenieRodzaju, nastepneId, poziomZaawansowania,
-                wspolczynnikSpontanicznosci, wagaDopasowania, wagaJakosciNawierzchni, czySledzeni, wezly[idPoczatkowegoWezla],
+                wspolczynnikSpontanicznosci, wagaDopasowania, wagaJakosciNawierzchni, czySledzeni, wezly.get(idPoczatkowegoWezla),
                 start, maszynaLosujaca, wspolczynnikZnudzenia, wagaZnudzenia);
         
         assert pierwszySportowiec != null : "Bledny identyifkator rodzaju sportowca.";

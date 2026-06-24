@@ -13,6 +13,7 @@ import sportowcy.historia_przejazdow.HistoriaPrzejazdowSportowca;
 import sportowcy.Sportowiec;
 import wczytywacz.DaneWejsciowe;
 
+import java.util.List;
 import java.util.function.Function;
 
 public class KreatorMapek {
@@ -27,10 +28,10 @@ public class KreatorMapek {
     private static final String POSTFIX_PLIK_SPORTOWIEC = ".tex";
 
     private final GeneratorMapek generator;
-    private final Sportowiec[] sportowcy;
-    private final Trasa[] trasy;
-    private final Wyciag[] wyciagi;
-    private final Wezel[] wezly;
+    private final List<Sportowiec> sportowcy;
+    private final List<Trasa> trasy;
+    private final List<Wyciag> wyciagi;
+    private final List<Wezel> wezly;
 
     public KreatorMapek(String katalog, DaneWejsciowe dane) throws WyjatekSystemuPlikow {
         generator = new GeneratorMapek(katalog);

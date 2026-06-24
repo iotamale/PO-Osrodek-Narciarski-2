@@ -28,7 +28,7 @@ public class SportowiecZachlanny extends SportowiecPlanujacy {
 
     @Override
     public Trasa znajdzWymarzonaTrase(Osrodek osrodek, PrzeszukiwanieGrafu bfs) {
-        return Arrays.stream(osrodek.trasy())
+        return osrodek.trasy().stream()
                 // Bierzemy tylko osiagalne trasy
                 .filter(trasa -> bfs.pobierzOdleglosc(trasa.poczatek()) != -1)
                 .max(Comparator.comparingDouble(this::lacznaAtrakcyjnosc))

@@ -1,39 +1,39 @@
 package osrodek;
 
-import java.util.Arrays;
+import java.util.List;
 
 import osrodek.krawedz.Trasa;
 import osrodek.krawedz.wyciag.Wyciag;
 
 public class Osrodek {
 
-    private final Wezel[] wezly;
+    private final List<Wezel> wezly;
 
-    private final Trasa[] trasy;
+    private final List<Trasa> trasy;
 
-    private final Wyciag[] wyciagi;
+    private final List<Wyciag> wyciagi;
 
-    public Osrodek(Wezel[] wezly, Trasa[] trasy, Wyciag[] wyciagi) {
+    public Osrodek(List<Wezel> wezly, List<Trasa> trasy, List<Wyciag> wyciagi) {
         this.wezly = wezly;
         this.trasy = trasy;
         this.wyciagi = wyciagi;
     }
 
-    public Wezel[] wezly() {
+    public List<Wezel> wezly() {
         return wezly;
     }
 
-    public Trasa[] trasy() {
+    public List<Trasa> trasy() {
         return trasy;
     }
 
-    public Wyciag[] wyciagi() {
+    public List<Wyciag> wyciagi() {
         return wyciagi;
     }
 
     @Override
     public String toString() {
-        return "Osrodek [wezly=" + Arrays.toString(wezly) + ", trasy=" + Arrays.toString(trasy) + ", wyciagi="
-            + Arrays.toString(wyciagi) + "]";
+        return "Osrodek [wezly=" + wezly + ", trasy=" + trasy + ", wyciagi="
+            + wyciagi + "]";
     }
 }

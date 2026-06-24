@@ -89,24 +89,24 @@ public class Wyciag extends Krawedz {
     public Zdarzenie[] odjazd(Moment moment, Dziennik dziennik) {
         zaaktulizujStatystykiKolejki(moment);   // Aktulizujemy przed zdjęciem z kolejki.
 
-        Sportowiec[] odjezdzajacySportowcy = obecnaKolejka.zdejmij(Math.min(obecnaKolejka.rozmiar(), ladownosc));
+        List<Sportowiec> odjezdzajacySportowcy = obecnaKolejka.zdejmij(Math.min(obecnaKolejka.rozmiar(), ladownosc));
 
         for (Sportowiec sportowiec : odjezdzajacySportowcy) {
             dziennik.dodajWpisZeSportowcem(moment, sportowiec, String.format("rozpoczął wjazd %s", toString()));
             sportowiec.zarejestrujPrzejazdWyciagiem(this);
         }
 
-        Zdarzenie[] noweZdarzenia = new Zdarzenie[1 + odjezdzajacySportowcy.length];
+        Zdarzenie[] noweZdarzenia = new Zdarzenie[1 + odjezdzajacySportowcy.size()];
         noweZdarzenia[0] = new OdjazdWyciagu(moment.dodajInterwal(odstepMiedzyOdjazdami), this);
 
-        for (int i = 0; i < odjezdzajacySportowcy.length; i++) {
+        for (int i = 0; i < odjezdzajacySportowcy.size(); i++) {
             noweZdarzenia[1 + i] = new DotarcieDoWezla(moment.dodajInterwal(dlugosc()),
                 this,
                 koniec(),
-                odjezdzajacySportowcy[i]);
+                odjezdzajacySportowcy.get(i));
         }
 
-        lacznaLiczbaPasazerow += odjezdzajacySportowcy.length;
+        lacznaLiczbaPasazerow += odjezdzajacySportowcy.size();
 
         return noweZdarzenia;
     }
@@ -139,7 +139,7 @@ public class Wyciag extends Krawedz {
     public String wypiszStatystyki() {
         zaaktulizujStatystykiKolejki(OSTATNI_ODJAZD);
 
-        return String.format("Maks długość kolejki: %d\nŚrednia długość kolejki: %d\nŁączna liczba pasażerów: %d\nProcent zajętych miejsc: %d",
+        return String.format("Max dł. kolejki: %d | Śr. dł. kolejki: %d | Pasażerowie: %d | Procent zajętych miejsc: %d",
                 maksDlugoscKolejki, sredniaDlugoscKolejki(), lacznaLiczbaPasazerow, procentZajetychMiejsc());
     }
 

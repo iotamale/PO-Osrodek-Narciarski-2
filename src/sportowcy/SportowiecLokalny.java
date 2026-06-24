@@ -8,6 +8,8 @@ import osrodek.Wezel;
 import osrodek.krawedz.Trasa;
 import osrodek.krawedz.wyciag.Wyciag;
 
+import java.util.List;
+
 public class SportowiecLokalny extends Sportowiec {
 
     public SportowiecLokalny(int id,
@@ -45,8 +47,8 @@ public class SportowiecLokalny extends Sportowiec {
      * są osiągalne wyciągiem zaczynającym się w obecnym wierzchołku.
      */
     private Zdarzenie podejmijPrzemyslanaDecyzje(Moment moment, Wezel obecnyWezel) {
-        Trasa[] bezposrednieTrasy = obecnyWezel.wychodzaceTrasy();
-        Wyciag[] wyciagi = obecnyWezel.wychodzaceWyciagi();
+        List<Trasa> bezposrednieTrasy = obecnyWezel.wychodzaceTrasy();
+        List<Wyciag> wyciagi = obecnyWezel.wychodzaceWyciagi();
 
         double najwiekszaAtrakcyjnosc = -1;
         Trasa najlepszaTrasa = null;
@@ -74,7 +76,7 @@ public class SportowiecLokalny extends Sportowiec {
         if (najlepszaTrasa == null) {
             // Zbiór dostępnych tras jest pusty, wiec wybieramy dowolny wyciąg.
             // Mamy gwarancję że taki istnieje, ponieważ graf jest silnie spójny.
-            return wyciagi[0].zdarzenieNastepnegoKroku(moment, this);
+            return wyciagi.get(0).zdarzenieNastepnegoKroku(moment, this);
         } else if (nastepnyWyciag == null) {
             // Wybrana trasa zaczyna się w obecnym wierzchołku.
             return najlepszaTrasa.zdarzenieNastepnegoKroku(moment, this);
