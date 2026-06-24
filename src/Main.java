@@ -13,7 +13,8 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) throws WyjatekSystemuPlikow {
-        assert args.length > 0 : "Brak ścieżki do katalogu w argumencie programu.";
+        assert args.length > 0 : "Nie podano sciezki dla zapisu mapek w argumencie programu.";
+
         try {
             final DaneWejsciowe daneWejsciowe = wczytajWejscie();
 
@@ -23,12 +24,12 @@ public class Main {
                     daneWejsciowe.sportowcy());
 
             final KreatorMapek kreatorMapek = new KreatorMapek(args[0], daneWejsciowe);
-            kreatorMapek.generujWszystkie();
+            kreatorMapek.generujWszystkieMapki();
         } catch (WyjatekSystemuPlikow e) {
-            System.err.println("Wystąpił problem z systemem plików (nie można utworzyć/zapisać pliku z mapką, itd)");
+            System.err.println("Wystąpił problem z systemem plików (nie można utworzyć/zapisać pliku z mapką, itd).");
             System.err.println("Upewnij się że podana ścieżka jest poprawna i masz uprawnienia do zapisu w tej lokalizacji.");
             e.printStackTrace();
-        } catch (Exception e) {
+        } catch (Throwable e) {
             System.err.println("Wystąpił krytyczny błąd w programie. Proszę zglosic ten błąd deweloperowi programu.");
             e.printStackTrace();
         }
@@ -45,8 +46,4 @@ public class Main {
         return wczytywacz.wczytajWejscie();
     }
 
-    // TODO oddzielna klasa na statystyki danego wyciagu, trasy, itp
-    // TODO wyluskac comparatory tam gdzie sie da
-    // TODO rekord do trzymania alfa beta itp w sportowcu?
-    // TODO asercje!
 }
