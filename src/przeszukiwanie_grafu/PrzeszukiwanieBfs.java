@@ -2,9 +2,7 @@ package przeszukiwanie_grafu;
 
 import osrodek.Wezel;
 import osrodek.krawedz.Krawedz;
-
 import java.util.*;
-import java.util.stream.Stream;
 
 public class PrzeszukiwanieBfs implements PrzeszukiwanieGrafu {
 
@@ -12,6 +10,9 @@ public class PrzeszukiwanieBfs implements PrzeszukiwanieGrafu {
     private final Map<Wezel, Krawedz> krawedzieWejsciowe;
     private final Map<Wezel, Wezel> poprzednicy;
 
+    /**
+     * Inicjuje BFS od podanego wezla startowego.
+     */
     public PrzeszukiwanieBfs(Wezel start) {
         odleglosci = new HashMap<>();
         krawedzieWejsciowe = new HashMap<>();
@@ -24,17 +25,29 @@ public class PrzeszukiwanieBfs implements PrzeszukiwanieGrafu {
         while (!kolejka.isEmpty()) {
             final Wezel u = kolejka.poll();
 
-            Stream.concat(Arrays.stream(u.wychodzaceTrasy()), Arrays.stream(u.wychodzaceWyciagi()))
-                    .forEach(krawedz -> {
-                        final Wezel v = krawedz.koniec();
+            for (final Krawedz krawedz : u.wychodzaceTrasy()) {
+                przetworzSasiada(u, krawedz, kolejka);
+            }
 
-                        if (!odleglosci.containsKey(v)) {
-                            odleglosci.put(v, odleglosci.get(u) + 1);
-                            krawedzieWejsciowe.put(v, krawedz);
-                            poprzednicy.put(v, u);
-                            kolejka.add(v);
-                        }
-                    });
+            for (final Krawedz krawedz : u.wychodzaceWyciagi()) {
+                przetworzSasiada(u, krawedz, kolejka);
+            }
+        }
+    }
+
+    /**
+     * Funkcja pomocnicza przetwarzająca pojedyńczą krawedz wychodzącą z danego węzła.
+     * Jeśli docelowy wezel nie byl jeszcze odwiedzony, zapisuje jego parametry i wrzuca
+     * go do kolejki.
+     */
+    private void przetworzSasiada(Wezel obecny, Krawedz krawedz, Queue<Wezel> kolejka) {
+        final Wezel v = krawedz.koniec();
+
+        if (!odleglosci.containsKey(v)) {
+            odleglosci.put(v, odleglosci.get(obecny) + 1);
+            krawedzieWejsciowe.put(v, krawedz);
+            poprzednicy.put(v, obecny);
+            kolejka.add(v);
         }
     }
 
