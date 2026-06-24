@@ -141,11 +141,7 @@ public abstract class Sportowiec {
      * Funkcja determinująca, czy nastepny krok jest losowy.
      */
     public boolean czyNastepnyKrokLosowy() {
-        if (maszynaLosujaca.losowyDouble(0, 1) < wspolczynnikSpontanicznosci) {
-            return true;
-        } else {
-            return false;
-        }
+        return maszynaLosujaca.losowyDouble(0, 1) < wspolczynnikSpontanicznosci;
     }
 
     /**
