@@ -44,7 +44,7 @@ public class TestyWyciagu {
         sportowcy = new Sportowiec[5];
         for (int i = 0; i < 5; i++) {
             sportowcy[i] = new SportowiecLokalny(i, 5, 0.3, 0.3, 0.3,
-                    true, w0, MOMENT0, MASZYNA, 0.5, 0.2);
+                    true, w0, MOMENT0, MASZYNA, 0.5, 0.4);
         }
     }
 
