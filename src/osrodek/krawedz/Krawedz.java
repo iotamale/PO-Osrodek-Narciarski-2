@@ -7,6 +7,7 @@ import osrodek.Wezel;
 import sportowcy.Sportowiec;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public abstract class Krawedz {
 
@@ -51,12 +52,12 @@ public abstract class Krawedz {
     /**
      * Generuje opis wykorzystywany do pierwszej mapki (parametry).
      */
-    public abstract ArrayList<String> generujOpisMapkaParametrow();
+    public abstract List<String> generujOpisMapkaParametrow();
 
     /**
      * Generuje opis wykorzystywany do drugiej mapki (statystyki).
      */
-    public abstract ArrayList<String> generujOpisMapkaStatystyk();
+    public abstract List<String> generujOpisMapkaStatystyk();
 
     /**
      * Zwraca oznaczenie pod etykiety mapek (wyciąg - w, trasa - t).

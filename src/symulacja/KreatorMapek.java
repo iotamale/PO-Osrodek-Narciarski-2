@@ -13,7 +13,6 @@ import sportowcy.historia_przejazdow.HistoriaPrzejazdowSportowca;
 import sportowcy.Sportowiec;
 import wczytywacz.DaneWejsciowe;
 
-import java.util.ArrayList;
 import java.util.function.Function;
 
 public class KreatorMapek {
@@ -41,12 +40,22 @@ public class KreatorMapek {
         wezly = dane.osrodek().wezly();
     }
 
+    /**
+     * Generuje nazwe pliku .tex dla sportowca.
+     */
     private String nazwaPlikuSportowca(Sportowiec sportowiec) {
         return PREFIX_PLIK_SPORTOWIEC + "-" + sportowiec.id() + POSTFIX_PLIK_SPORTOWIEC;
     }
 
-    private void generujMapke(Function<Trasa, ArrayList<String>> ekstraktorTrasa,
-                              Function<Wyciag, ArrayList<String>> ekstraktorWyciag,
+    /**
+     * Funkcja odpowiedzialna za generowanie mapek. Dzięki interfejsowi KreatorKrawedzi
+     * unikamy podwojnej deklaracji funkcji w zaleznosci od tego, czy korzystamy
+     * z generatorMapek::dodajKrawedz(List<String>), czy z jego przeciążonej wersji
+     * przyjmujacej String.
+     */
+    private <T> void generujMapke(Function<Trasa, T> ekstraktorTrasa,
+                              Function<Wyciag, T> ekstraktorWyciag,
+                              KreatorKrawedzi<T> funkcja,
                               String nazwaPliku) throws WyjatekSystemuPlikow {
         generator.zeruj();
         dodajWszystkieWezly();
@@ -54,13 +63,13 @@ public class KreatorMapek {
         for (final Trasa t : trasy) {
             final int nrPoczatek = t.poczatek().id();
             final int nrKoniec = t.koniec().id();
-            generator.dodajKrawedz(nrPoczatek, nrKoniec, K_TRASA, ekstraktorTrasa.apply(t));
+            funkcja.dodaj(nrPoczatek, nrKoniec, K_TRASA, ekstraktorTrasa.apply(t));
         }
 
         for (final Wyciag w : wyciagi) {
             final int nrPoczatek = w.poczatek().id();
             final int nrKoniec = w.koniec().id();
-            generator.dodajKrawedz(nrPoczatek, nrKoniec, K_WYCIAG, ekstraktorWyciag.apply(w));
+            funkcja.dodaj(nrPoczatek, nrKoniec, K_WYCIAG, ekstraktorWyciag.apply(w));
         }
 
         generator.tworzMapke(nazwaPliku);
@@ -74,11 +83,11 @@ public class KreatorMapek {
     }
 
     public void generujMapkeParametrow() throws WyjatekSystemuPlikow {
-        generujMapke(Trasa::generujOpisMapkaParametrow, Wyciag::generujOpisMapkaParametrow, NAZWA_PLIK_PARAMETRY);
+        generujMapke(Trasa::generujOpisMapkaParametrow, Wyciag::generujOpisMapkaParametrow, generator::dodajKrawedz, NAZWA_PLIK_PARAMETRY);
     }
 
     public void generujMapkeStatystyk() throws WyjatekSystemuPlikow {
-        generujMapke(Trasa::generujOpisMapkaStatystyk, Wyciag::generujOpisMapkaStatystyk, NAZWA_PLIK_STATYSTYKI);
+        generujMapke(Trasa::generujOpisMapkaStatystyk, Wyciag::generujOpisMapkaStatystyk,  generator::dodajKrawedz, NAZWA_PLIK_STATYSTYKI);
     }
 
     public void generujMapkeSportowcow() throws WyjatekSystemuPlikow {
@@ -87,11 +96,14 @@ public class KreatorMapek {
                 continue;
             }
             final HistoriaPrzejazdowSportowca historia = s.historiaPrzejazdow();
-            generujMapke(historia::stringDlaKrawedzi, historia::stringDlaKrawedzi, nazwaPlikuSportowca(s));
+            generujMapke(historia::stringDlaKrawedzi, historia::stringDlaKrawedzi, generator::dodajKrawedz, nazwaPlikuSportowca(s));
         }
     }
 
-    public void generujWszystkie() throws WyjatekSystemuPlikow {
+    /**
+     * Funkcja generująca wszystkie mapki.
+     */
+    public void generujWszystkieMapki() throws WyjatekSystemuPlikow {
         generujMapkeParametrow();
         generujMapkeStatystyk();
         generujMapkeSportowcow();

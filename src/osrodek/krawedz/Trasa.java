@@ -8,6 +8,7 @@ import osrodek.Wezel;
 import sportowcy.Sportowiec;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Trasa extends Krawedz {
 
@@ -80,8 +81,8 @@ public class Trasa extends Krawedz {
      * Generuje opis wykorzystywany do pierwszej mapki (parametry).
      */
     @Override
-    public ArrayList<String> generujOpisMapkaParametrow() {
-        ArrayList<String> linie = new ArrayList<>();
+    public List<String> generujOpisMapkaParametrow() {
+        final List<String> linie = new ArrayList<>();
         linie.add(etykietaPodMapke() + String.format(": poziom: %d, czas: %ds", poziomTrudnosci, dlugosc().sekundy()));
         linie.add(String.format("odporność: %.2f, %.5f", bazowaAtrakcyjnosc, odpornoscNaNierownosci));
         return linie;
@@ -91,8 +92,8 @@ public class Trasa extends Krawedz {
      * Generuje opis wykorzystywany do drugiej mapki (statystyki).
      */
     @Override
-    public ArrayList<String> generujOpisMapkaStatystyk() {
-        ArrayList<String> linie = new ArrayList<>();
+    public List<String> generujOpisMapkaStatystyk() {
+        final List<String> linie = new ArrayList<>();
         linie.add(etykietaPodMapke()+ String.format(": śnieg: %.2f", wyrownanieNawierzchni()));
         linie.add(String.format("zjazdy: %d", liczbaZjazdow));
         return linie;

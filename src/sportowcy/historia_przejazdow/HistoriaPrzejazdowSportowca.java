@@ -57,7 +57,7 @@ public class HistoriaPrzejazdowSportowca {
     /**
      * Zwraca etykietę dla kreatora mapki sportowców.
      */
-    public ArrayList<String> stringDlaKrawedzi(Krawedz krawedz) {
+    public String stringDlaKrawedzi(Krawedz krawedz) {
         final StringBuilder sb = new StringBuilder();
         final RejestrHistorii rejestr = pobierzRejestr(krawedz);
 
@@ -65,9 +65,7 @@ public class HistoriaPrzejazdowSportowca {
         sb.append(String.format("(%d): ", rejestr.rozmiar()));
         sb.append(rejestr);
 
-        final ArrayList<String> lista = new ArrayList<>();
-        lista.add(sb.toString());
-        return lista;
+        return sb.toString();
     }
 
 }

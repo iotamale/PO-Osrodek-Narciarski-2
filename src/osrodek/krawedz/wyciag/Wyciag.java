@@ -12,6 +12,7 @@ import osrodek.krawedz.Krawedz;
 import sportowcy.Sportowiec;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Wyciag extends Krawedz {
 
@@ -154,8 +155,8 @@ public class Wyciag extends Krawedz {
      * Generuje opis wykorzystywany do pierwszej mapki (parametry).
      */
     @Override
-    public ArrayList<String> generujOpisMapkaParametrow() {
-        ArrayList<String> linie = new ArrayList<>();
+    public List<String> generujOpisMapkaParametrow() {
+        final List<String> linie = new ArrayList<>();
         linie.add(etykietaPodMapke() + String.format(": %d os. co %ds", ladownosc, odstepMiedzyOdjazdami.sekundy()));
         linie.add(String.format("czas: %ds", dlugosc().sekundy()));
         return linie;
@@ -165,8 +166,8 @@ public class Wyciag extends Krawedz {
      * Generuje opis wykorzystywany do drugiej mapki (statystyki).
      */
     @Override
-    public ArrayList<String> generujOpisMapkaStatystyk() {
-        ArrayList<String> linie = new ArrayList<>();
+    public List<String> generujOpisMapkaStatystyk() {
+        final List<String> linie = new ArrayList<>();
         linie.add(etykietaPodMapke() + String.format(": kol: %d(śr), %d(maks)", sredniaDlugoscKolejki(), maksDlugoscKolejki));
         linie.add(String.format("wjazdy: %d / %d (%d%%)", lacznaLiczbaPasazerow, mozliweWjazdy(), procentZajetychMiejsc()));
         return linie;
