@@ -39,12 +39,6 @@ public abstract class Sportowiec {
                       Moment momentStartu,
                       MaszynaLosujaca maszynaLosujaca,
                       double wspolczynnikZnudzenia, double wagaZnudzenia) {
-        assert Math.abs(wagaTrudnosci + wagaNawierzchni + wagaZnudzenia - 1.0) < 1e-6
-                : "Wagi atrakcyjnosci musza sumowac się do 1.";
-
-        assert wspolczynnikSpontanicznosci >= 0.0 && wspolczynnikSpontanicznosci <= 1.0
-                : "Wsp spontanicznosci musi być z przedziału [0, 1].";
-
         this.id = id;
         this.poziomZaawansowania = poziomZaawansowania;
         this.wspolczynnikSpontanicznosci = wspolczynnikSpontanicznosci;
