@@ -15,6 +15,8 @@ public class KolejkaPriorytetowaZdarzen implements KolejkaZdarzen {
 
     @Override
     public void dodaj(Zdarzenie zdarzenie) {
+        assert zdarzenie != null : "Zdarzenie dodawane do kolejki nie moze byc nullem";
+
         kolejka.add(new ParaZdarzeniowa(zdarzenie, licznik++));
     }
 
