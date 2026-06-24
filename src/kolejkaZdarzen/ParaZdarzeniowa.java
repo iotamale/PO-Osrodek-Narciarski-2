@@ -4,14 +4,12 @@ import kolejkaZdarzen.zdarzenia.Zdarzenie;
 
 class ParaZdarzeniowa {
 
-    private static long globalnyLicznik = Long.MIN_VALUE;
-
     private final Zdarzenie zdarzenie;
     private final long numerPorzadkowy;
 
-    protected ParaZdarzeniowa(Zdarzenie zdarzenie) {
+    protected ParaZdarzeniowa(Zdarzenie zdarzenie, long numerPorzadkowy) {
         this.zdarzenie = zdarzenie;
-        this.numerPorzadkowy = globalnyLicznik++;
+        this.numerPorzadkowy = numerPorzadkowy;
     }
 
     protected Zdarzenie zdarzenie() {

@@ -7,6 +7,7 @@ import java.util.PriorityQueue;
 public class KolejkaPriorytetowaZdarzen implements KolejkaZdarzen {
 
     private final PriorityQueue<ParaZdarzeniowa> kolejka;
+    private long licznik = Long.MIN_VALUE;
 
     public KolejkaPriorytetowaZdarzen() {
         this.kolejka = new PriorityQueue<>(new ComparatorParZdarzen());
@@ -14,7 +15,7 @@ public class KolejkaPriorytetowaZdarzen implements KolejkaZdarzen {
 
     @Override
     public void dodaj(Zdarzenie zdarzenie) {
-        kolejka.add(new ParaZdarzeniowa(zdarzenie));
+        kolejka.add(new ParaZdarzeniowa(zdarzenie, licznik++));
     }
 
     @Override
