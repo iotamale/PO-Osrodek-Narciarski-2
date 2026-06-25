@@ -7,7 +7,6 @@ import osrodek.Wezel;
 import osrodek.krawedz.Trasa;
 import przeszukiwanie_grafu.PrzeszukiwanieGrafu;
 
-import java.util.Arrays;
 import java.util.Comparator;
 
 public class SportowiecZachlanny extends SportowiecPlanujacy {

@@ -9,8 +9,10 @@ import kadra.mapki.styl.StylWezla;
 import osrodek.Wezel;
 import osrodek.krawedz.Trasa;
 import osrodek.krawedz.wyciag.Wyciag;
-import sportowcy.historia_przejazdow.HistoriaPrzejazdowSportowca;
 import sportowcy.Sportowiec;
+import symulacja.odwiedzajacy.OdwiedzajacyMapkiParametrow;
+import symulacja.odwiedzajacy.OdwiedzajacyMapkiSportowcow;
+import symulacja.odwiedzajacy.OdwiedzajacyMapkiStatystyk;
 import wczytywacz.DaneWejsciowe;
 
 import java.util.List;
@@ -84,11 +86,13 @@ public class KreatorMapek {
     }
 
     public void generujMapkeParametrow() throws WyjatekSystemuPlikow {
-        generujMapke(Trasa::generujOpisMapkaParametrow, Wyciag::generujOpisMapkaParametrow, generator::dodajKrawedz, NAZWA_PLIK_PARAMETRY);
+        final OdwiedzajacyMapkiParametrow odwiedzajacy = new OdwiedzajacyMapkiParametrow();
+        generujMapke(trasa -> trasa.przyjmij(odwiedzajacy), wyciag -> wyciag.przyjmij(odwiedzajacy), generator::dodajKrawedz, NAZWA_PLIK_PARAMETRY);
     }
 
     public void generujMapkeStatystyk() throws WyjatekSystemuPlikow {
-        generujMapke(Trasa::generujOpisMapkaStatystyk, Wyciag::generujOpisMapkaStatystyk,  generator::dodajKrawedz, NAZWA_PLIK_STATYSTYKI);
+        final OdwiedzajacyMapkiStatystyk odwiedzajacy = new OdwiedzajacyMapkiStatystyk();
+        generujMapke(trasa -> trasa.przyjmij(odwiedzajacy), wyciag -> wyciag.przyjmij(odwiedzajacy),  generator::dodajKrawedz, NAZWA_PLIK_STATYSTYKI);
     }
 
     public void generujMapkeSportowcow() throws WyjatekSystemuPlikow {
@@ -96,8 +100,8 @@ public class KreatorMapek {
             if (!s.sledzony()) {
                 continue;
             }
-            final HistoriaPrzejazdowSportowca historia = s.historiaPrzejazdow();
-            generujMapke(historia::stringDlaKrawedzi, historia::stringDlaKrawedzi, generator::dodajKrawedz, nazwaPlikuSportowca(s));
+            final OdwiedzajacyMapkiSportowcow odwiedzajacy = new OdwiedzajacyMapkiSportowcow(s.historiaPrzejazdow());
+            generujMapke(trasa -> trasa.przyjmij(odwiedzajacy), wyciag -> wyciag.przyjmij(odwiedzajacy), generator::dodajKrawedz, nazwaPlikuSportowca(s));
         }
     }
 

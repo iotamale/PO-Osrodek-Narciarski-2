@@ -1,6 +1,5 @@
 package sportowcy.historia_przejazdow;
 
-import osrodek.Osrodek;
 import osrodek.krawedz.Krawedz;
 import osrodek.krawedz.Trasa;
 
@@ -55,17 +54,10 @@ public class HistoriaPrzejazdowSportowca {
     }
 
     /**
-     * Zwraca etykietę dla kreatora mapki sportowców.
+     * Zwraca zapis rejestru przejazdów jako String.
      */
-    public String stringDlaKrawedzi(Krawedz krawedz) {
-        final StringBuilder sb = new StringBuilder();
-        final RejestrHistorii rejestr = pobierzRejestr(krawedz);
-
-        sb.append(krawedz.etykietaPodMapke());
-        sb.append(String.format("(%d): ", rejestr.rozmiar()));
-        sb.append(rejestr);
-
-        return sb.toString();
+    public String pobierzZapisRejestru(Krawedz krawedz) {
+        return pobierzRejestr(krawedz).toString();
     }
 
 }

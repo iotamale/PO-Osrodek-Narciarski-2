@@ -7,9 +7,6 @@ import kolejkaZdarzen.zdarzenia.Zdarzenie;
 import osrodek.Wezel;
 import sportowcy.Sportowiec;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Trasa extends Krawedz {
 
     private final int poziomTrudnosci; // {0, 1, ..., 10}
@@ -64,8 +61,8 @@ public class Trasa extends Krawedz {
     }
 
     @Override
-    public String wypiszStatystyki() {
-        return String.format("Zjazdów: %d | Wyrównanie trasy: %f", liczbaZjazdow, wyrownanieNawierzchni());
+    public <T> T przyjmij(OdwiedzajacyKrawedz<T> visitor) {
+        return visitor.odwiedz(this);
     }
 
     /**
@@ -76,33 +73,6 @@ public class Trasa extends Krawedz {
         return new RozpoczecieZjazdu(moment, this, sportowiec);
     }
 
-
-    /**
-     * Generuje opis wykorzystywany do pierwszej mapki (parametry).
-     */
-    @Override
-    public List<String> generujOpisMapkaParametrow() {
-        final List<String> linie = new ArrayList<>();
-        linie.add(etykietaPodMapke() + String.format(": poziom: %d, czas: %ds", poziomTrudnosci, dlugosc().sekundy()));
-        linie.add(String.format("odporność: %.2f, %.5f", bazowaAtrakcyjnosc, odpornoscNaNierownosci));
-        return linie;
-    }
-
-    /**
-     * Generuje opis wykorzystywany do drugiej mapki (statystyki).
-     */
-    @Override
-    public List<String> generujOpisMapkaStatystyk() {
-        final List<String> linie = new ArrayList<>();
-        linie.add(etykietaPodMapke()+ String.format(": śnieg: %.2f", wyrownanieNawierzchni()));
-        linie.add(String.format("zjazdy: %d", liczbaZjazdow));
-        return linie;
-    }
-
-    @Override
-    protected String oznaczenieRodzaju() {
-        return "t";
-    }
 
     @Override
     public String toString() {

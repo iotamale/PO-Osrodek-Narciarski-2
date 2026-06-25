@@ -9,9 +9,9 @@ import kolejkaZdarzen.zdarzenia.OdjazdWyciagu;
 import kolejkaZdarzen.zdarzenia.Zdarzenie;
 import osrodek.Wezel;
 import osrodek.krawedz.Krawedz;
+import osrodek.krawedz.OdwiedzajacyKrawedz;
 import sportowcy.Sportowiec;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Wyciag extends Krawedz {
@@ -47,6 +47,14 @@ public class Wyciag extends Krawedz {
         maksDlugoscKolejki = 0;
         sumaDlugosciKolejki = 0;
         ostatniaOperacjaNaKolejce = PIERWSZY_ODJAZD;
+    }
+
+    public int ladownosc() {
+        return ladownosc;
+    }
+
+    public Interwal odstepMiedzyOdjazdami() {
+        return odstepMiedzyOdjazdami;
     }
 
     public int lacznaLiczbaPasazerow() {
@@ -114,68 +122,39 @@ public class Wyciag extends Krawedz {
     /**
      * Zwraca średnią długość kolejki zaokrągloną do najbliższej liczby całkowitej.
      */
-    private int sredniaDlugoscKolejki() {
+    public int sredniaDlugoscKolejki() {
         return (int) Math.round((double) sumaDlugosciKolejki / CZAS_SYMULACJI_S);
     }
 
     /**
      * Zwraca ilość wjazdów, które są teoretycznie możliwe w godzinach pracy wyciągu.
      */
-    private int mozliweWjazdy() {
+    public int mozliweWjazdy() {
         return (CZAS_SYMULACJI_S / odstepMiedzyOdjazdami.sekundy()) * ladownosc;
     }
 
     /**
      * Zwraca procent zajętych miejsc na wyciągu w zaokręgleniu do liczby całkowitej.
      */
-    private int procentZajetychMiejsc() {
+    public int procentZajetychMiejsc() {
         return (int) Math.round((double) lacznaLiczbaPasazerow / mozliweWjazdy() * 100);
     }
 
     /**
-     * Generuje "ładne" statystyki wypisywane dla użytkownika do dziennika.
+     * Funkcja wywoływana na koniec dnia. Upewnia się, że wszystkie zjazdy
+     * zostały dodane do statystyk.
      */
-    @Override
-    public String wypiszStatystyki() {
+    public void zakonczDzien() {
         zaaktulizujStatystykiKolejki(OSTATNI_ODJAZD);
-
-        return String.format("Max dł. kolejki: %d | Śr. dł. kolejki: %d | Pasażerowie: %d | Procent zajętych miejsc: %d",
-                maksDlugoscKolejki, sredniaDlugoscKolejki(), lacznaLiczbaPasazerow, procentZajetychMiejsc());
     }
 
-    /**
-     * Tworzy zdarzenie dołączenia do kolejki do wyciągu w nastepnym kroku.
-     */
     @Override
+    public <T> T przyjmij(OdwiedzajacyKrawedz<T> visitor) {
+        return visitor.odwiedz(this);
+    }
+
     public Zdarzenie zdarzenieNastepnegoKroku(Moment moment, Sportowiec sportowiec) {
         return new DolaczenieDoKolejki(moment, this, sportowiec);
-    }
-
-    /**
-     * Generuje opis wykorzystywany do pierwszej mapki (parametry).
-     */
-    @Override
-    public List<String> generujOpisMapkaParametrow() {
-        final List<String> linie = new ArrayList<>();
-        linie.add(etykietaPodMapke() + String.format(": %d os. co %ds", ladownosc, odstepMiedzyOdjazdami.sekundy()));
-        linie.add(String.format("czas: %ds", dlugosc().sekundy()));
-        return linie;
-    }
-
-    /**
-     * Generuje opis wykorzystywany do drugiej mapki (statystyki).
-     */
-    @Override
-    public List<String> generujOpisMapkaStatystyk() {
-        final List<String> linie = new ArrayList<>();
-        linie.add(etykietaPodMapke() + String.format(": kol: %d(śr), %d(maks)", sredniaDlugoscKolejki(), maksDlugoscKolejki));
-        linie.add(String.format("wjazdy: %d / %d (%d%%)", lacznaLiczbaPasazerow, mozliweWjazdy(), procentZajetychMiejsc()));
-        return linie;
-    }
-
-    @Override
-    protected String oznaczenieRodzaju() {
-        return "w";
     }
 
     @Override

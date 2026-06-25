@@ -76,7 +76,7 @@ public class SportowiecLokalny extends Sportowiec {
         if (najlepszaTrasa == null) {
             // Zbiór dostępnych tras jest pusty, wiec wybieramy dowolny wyciąg.
             // Mamy gwarancję że taki istnieje, ponieważ graf jest silnie spójny.
-            return wyciagi.get(0).zdarzenieNastepnegoKroku(moment, this);
+            return wyciagi.getFirst().zdarzenieNastepnegoKroku(moment, this);
         } else if (nastepnyWyciag == null) {
             // Wybrana trasa zaczyna się w obecnym wierzchołku.
             return najlepszaTrasa.zdarzenieNastepnegoKroku(moment, this);

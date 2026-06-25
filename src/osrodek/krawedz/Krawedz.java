@@ -6,9 +6,6 @@ import kolejkaZdarzen.zdarzenia.Zdarzenie;
 import osrodek.Wezel;
 import sportowcy.Sportowiec;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public abstract class Krawedz {
 
     private final int id;
@@ -42,34 +39,9 @@ public abstract class Krawedz {
         return dlugosc;
     }
 
-    /**
-     * Generuje "ładne" statystyki wypisywane dla użytkownika do dziennika.
-     */
-    public abstract String wypiszStatystyki();
-
     public abstract Zdarzenie zdarzenieNastepnegoKroku(Moment moment, Sportowiec sportowiec);
 
-    /**
-     * Generuje opis wykorzystywany do pierwszej mapki (parametry).
-     */
-    public abstract List<String> generujOpisMapkaParametrow();
-
-    /**
-     * Generuje opis wykorzystywany do drugiej mapki (statystyki).
-     */
-    public abstract List<String> generujOpisMapkaStatystyk();
-
-    /**
-     * Zwraca oznaczenie pod etykiety mapek (wyciąg - w, trasa - t).
-     */
-    protected abstract String oznaczenieRodzaju();
-
-    /**
-     * Generuje początek etykiety pod mapkę (np. "w1")
-     */
-    public String etykietaPodMapke() {
-        return oznaczenieRodzaju() + id;
-    }
+    public abstract <T> T przyjmij(OdwiedzajacyKrawedz<T> visitor);
 
     @Override
     public String toString() {

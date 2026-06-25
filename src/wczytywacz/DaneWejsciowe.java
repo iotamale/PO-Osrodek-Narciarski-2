@@ -1,9 +1,6 @@
 package wczytywacz;
 
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Stream;
-import java.util.stream.Collectors;
 
 import osrodek.Osrodek;
 import osrodek.Wezel;

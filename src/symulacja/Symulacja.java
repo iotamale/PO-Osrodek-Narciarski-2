@@ -10,9 +10,9 @@ import osrodek.Osrodek;
 import osrodek.krawedz.wyciag.Wyciag;
 import sportowcy.Sportowiec;
 
+import symulacja.odwiedzajacy.OdwiedzajacyStatystyk;
+
 import java.util.List;
-import java.util.stream.Stream;
-import java.util.Arrays;
 
 public class Symulacja {
 
@@ -61,6 +61,10 @@ public class Symulacja {
                 }
             }
         }
+
+        for (Wyciag wyciag : osrodek.wyciagi()) {
+            wyciag.zakonczDzien();
+        }
     }
 
     /**
@@ -68,13 +72,14 @@ public class Symulacja {
      */
     private void zbierzStatystyki(Osrodek osrodek, Dziennik dziennik) {
         String[][] statystyki = new String[osrodek.trasy().size() + osrodek.wyciagi().size()][2];
+        OdwiedzajacyStatystyk odwiedzajacyStatystyk = new OdwiedzajacyStatystyk();
 
         for (int i = 0; i < osrodek.trasy().size(); i++) {
-            statystyki[i] = new String[]{osrodek.trasy().get(i).toString(), osrodek.trasy().get(i).wypiszStatystyki()};
+            statystyki[i] = new String[]{osrodek.trasy().get(i).toString(), osrodek.trasy().get(i).przyjmij(odwiedzajacyStatystyk)};
         }
         for (int i = 0; i < osrodek.wyciagi().size(); i++) {
             statystyki[osrodek.trasy().size() + i] = new String[]{osrodek.wyciagi().get(i).toString(),
-                    osrodek.wyciagi().get(i).wypiszStatystyki()};
+                    osrodek.wyciagi().get(i).przyjmij(odwiedzajacyStatystyk)};
         }
 
         dziennik.dodajTabele(statystyki);
