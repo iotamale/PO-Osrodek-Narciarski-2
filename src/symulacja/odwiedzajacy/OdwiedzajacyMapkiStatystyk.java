@@ -24,4 +24,5 @@ public class OdwiedzajacyMapkiStatystyk implements OdwiedzajacyKrawedz<List<Stri
         linie.add(String.format("wjazdy: %d / %d (%d%%)", wyciag.lacznaLiczbaPasazerow(), wyciag.mozliweWjazdy(), wyciag.procentZajetychMiejsc()));
         return linie;
     }
+
 }

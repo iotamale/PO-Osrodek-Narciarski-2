@@ -24,4 +24,5 @@ public class OdwiedzajacyMapkiParametrow implements OdwiedzajacyKrawedz<List<Str
         linie.add(String.format("czas: %ds", wyciag.dlugosc().sekundy()));
         return linie;
     }
+
 }

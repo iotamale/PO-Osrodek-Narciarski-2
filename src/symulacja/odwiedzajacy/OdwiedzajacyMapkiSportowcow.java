@@ -26,4 +26,5 @@ public class OdwiedzajacyMapkiSportowcow implements OdwiedzajacyKrawedz<String> 
     public String odwiedz(Wyciag wyciag) {
         return budujLinie("w", wyciag.id(), historia.liczbaPrzejazdowKrawedzia(wyciag), historia.pobierzZapisRejestru(wyciag));
     }
+
 }

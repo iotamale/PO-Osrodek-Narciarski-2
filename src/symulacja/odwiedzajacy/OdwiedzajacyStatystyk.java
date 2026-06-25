@@ -16,4 +16,5 @@ public class OdwiedzajacyStatystyk implements OdwiedzajacyKrawedz<String> {
         return String.format("Max dł. kolejki: %d | Śr. dł. kolejki: %d | Pasażerowie: %d | Procent zajętych miejsc: %d",
                 wyciag.maksDlugoscKolejki(), wyciag.sredniaDlugoscKolejki(), wyciag.lacznaLiczbaPasazerow(), wyciag.procentZajetychMiejsc());
     }
+
 }
