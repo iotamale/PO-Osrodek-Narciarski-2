@@ -71,8 +71,8 @@ public class Symulacja {
      * Wypisuje statystyki końcowe symulacji.
      */
     private void zbierzStatystyki(Osrodek osrodek, Dziennik dziennik) {
-        String[][] statystyki = new String[osrodek.trasy().size() + osrodek.wyciagi().size()][2];
-        OdwiedzajacyStatystyk odwiedzajacyStatystyk = new OdwiedzajacyStatystyk();
+        final String[][] statystyki = new String[osrodek.trasy().size() + osrodek.wyciagi().size()][2];
+        final OdwiedzajacyStatystyk odwiedzajacyStatystyk = new OdwiedzajacyStatystyk();
 
         for (int i = 0; i < osrodek.trasy().size(); i++) {
             statystyki[i] = new String[]{osrodek.trasy().get(i).toString(), osrodek.trasy().get(i).przyjmij(odwiedzajacyStatystyk)};

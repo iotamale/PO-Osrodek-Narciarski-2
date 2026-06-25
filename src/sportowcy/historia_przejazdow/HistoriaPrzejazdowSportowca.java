@@ -54,7 +54,7 @@ public class HistoriaPrzejazdowSportowca {
     }
 
     /**
-     * Zwraca zapis rejestru przejazdów jako String.
+     * Zwraca zapis przejazdów dla kreatora mapki sportowcow.
      */
     public String pobierzZapisRejestru(Krawedz krawedz) {
         return pobierzRejestr(krawedz).toString();
