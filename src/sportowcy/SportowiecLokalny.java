@@ -1,5 +1,6 @@
 package sportowcy;
 
+import czas.Interwal;
 import czas.Moment;
 import kolejkaZdarzen.zdarzenia.Zdarzenie;
 import losowosc.MaszynaLosujaca;
@@ -84,5 +85,20 @@ public class SportowiecLokalny extends Sportowiec {
             // Musimy wjechac wyciągiem by dotrzeć do upatrzonej trasy.
             return nastepnyWyciag.zdarzenieNastepnegoKroku(moment, this);
         }
+    }
+
+    @Override
+    public Sportowiec kopia(int przesuniecieId, Interwal przesuniecieMomentuStartu) {
+        return new SportowiecLokalny(id() + przesuniecieId,
+                poziomZaawansowania(),
+                wspolczynnikSpontanicznosci(),
+                wagaTrudnosci(),
+                wagaNawierzchni(),
+                sledzony(),
+                wezelStartowy(),
+                momentStartu().dodajInterwal(przesuniecieMomentuStartu),
+                maszynaLosujaca(),
+                beta(),
+                wagaZnudzenia());
     }
 }

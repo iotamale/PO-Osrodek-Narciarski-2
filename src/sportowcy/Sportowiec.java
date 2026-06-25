@@ -64,6 +64,10 @@ public abstract class Sportowiec {
         return poziomZaawansowania;
     }
 
+    public double wagaZnudzenia() {
+        return wagaZnudzenia;
+    }
+
     public double wagaTrudnosci() {
         return wagaTrudnosci;
     }
@@ -74,6 +78,10 @@ public abstract class Sportowiec {
 
     public double wspolczynnikSpontanicznosci() {
         return wspolczynnikSpontanicznosci;
+    }
+
+    public double beta() {
+        return miernikZnudzenia.beta();
     }
 
     public boolean sledzony() {
@@ -164,24 +172,11 @@ public abstract class Sportowiec {
         }
     }
 
-
     /**
      * Tworzy kopie sportowca z tymi samymi parametrami ale zwiekszonym id oraz momentem startu.
      * Uzywane na potrzeby tworzenia wielu sportowcow z jednej grupy sportowcow z wejscia.
      */
-    public SportowiecLokalny kopia(int przesuniecieId, Interwal przesuniecieMomentuStartu) {
-        return new SportowiecLokalny(id + przesuniecieId,
-                poziomZaawansowania,
-                wspolczynnikSpontanicznosci,
-                wagaTrudnosci,
-                wagaNawierzchni,
-                sledzony,
-                wezelStartowy,
-                momentStartu.dodajInterwal(przesuniecieMomentuStartu),
-                maszynaLosujaca,
-                miernikZnudzenia.beta(),
-                wagaZnudzenia);
-    }
+    public abstract Sportowiec kopia(int przesuniecieId, Interwal przesuniecieMomentuStartu);
 
     @Override
     public String toString() {

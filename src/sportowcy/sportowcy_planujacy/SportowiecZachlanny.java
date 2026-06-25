@@ -1,11 +1,14 @@
 package sportowcy.sportowcy_planujacy;
 
+import czas.Interwal;
 import czas.Moment;
 import losowosc.MaszynaLosujaca;
 import osrodek.Osrodek;
 import osrodek.Wezel;
 import osrodek.krawedz.Trasa;
 import przeszukiwanie_grafu.PrzeszukiwanieGrafu;
+import sportowcy.Sportowiec;
+import sportowcy.SportowiecLokalny;
 
 import java.util.Comparator;
 
@@ -32,6 +35,21 @@ public class SportowiecZachlanny extends SportowiecPlanujacy {
                 .filter(trasa -> bfs.pobierzOdleglosc(trasa.poczatek()) != -1)
                 .max(Comparator.comparingDouble(this::lacznaAtrakcyjnosc))
                 .orElse(null);
+    }
+
+    @Override
+    public Sportowiec kopia(int przesuniecieId, Interwal przesuniecieMomentuStartu) {
+        return new SportowiecZachlanny(id() + przesuniecieId,
+                poziomZaawansowania(),
+                wspolczynnikSpontanicznosci(),
+                wagaTrudnosci(),
+                wagaNawierzchni(),
+                sledzony(),
+                wezelStartowy(),
+                momentStartu().dodajInterwal(przesuniecieMomentuStartu),
+                maszynaLosujaca(),
+                beta(),
+                wagaZnudzenia());
     }
 
 }

@@ -1,11 +1,14 @@
 package sportowcy.sportowcy_planujacy;
 
+import czas.Interwal;
 import czas.Moment;
 import losowosc.MaszynaLosujaca;
 import osrodek.Osrodek;
 import osrodek.Wezel;
 import osrodek.krawedz.Trasa;
 import przeszukiwanie_grafu.PrzeszukiwanieGrafu;
+import sportowcy.Sportowiec;
+import sportowcy.SportowiecLokalny;
 
 import java.util.*;
 
@@ -37,6 +40,21 @@ public class SportowiecKolekcjoner extends SportowiecPlanujacy {
                     // Dalszy remis to max atrakcyjnosc
                     .thenComparing(Comparator.comparingDouble(this::lacznaAtrakcyjnosc).reversed())
                 ).orElse(null);
+    }
+
+    @Override
+    public Sportowiec kopia(int przesuniecieId, Interwal przesuniecieMomentuStartu) {
+        return new SportowiecKolekcjoner(id() + przesuniecieId,
+                poziomZaawansowania(),
+                wspolczynnikSpontanicznosci(),
+                wagaTrudnosci(),
+                wagaNawierzchni(),
+                sledzony(),
+                wezelStartowy(),
+                momentStartu().dodajInterwal(przesuniecieMomentuStartu),
+                maszynaLosujaca(),
+                beta(),
+                wagaZnudzenia());
     }
 
 }
