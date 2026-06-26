@@ -13,8 +13,9 @@ public class OdwiedzajacyStatystyk implements OdwiedzajacyKrawedz<String> {
 
     @Override
     public String odwiedz(Wyciag wyciag) {
-        return String.format("Max dł. kolejki: %d | Śr. dł. kolejki: %d | Pasażerowie: %d | Procent zajętych miejsc: %d",
-                wyciag.maksDlugoscKolejki(), wyciag.sredniaDlugoscKolejki(), wyciag.lacznaLiczbaPasazerow(), wyciag.procentZajetychMiejsc());
+        return String.format("Max dł. kolejki: %d | Śr. dł. kolejki: %d | Pasażerowie: %d / %d (%d%%)",
+                wyciag.maksDlugoscKolejki(), wyciag.sredniaDlugoscKolejki(), wyciag.lacznaLiczbaPasazerow(),
+                wyciag.mozliweWjazdy(), wyciag.procentZajetychMiejsc());
     }
 
 }
