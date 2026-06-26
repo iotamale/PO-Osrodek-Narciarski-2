@@ -19,12 +19,14 @@ public class OdwiedzajacyMapkiSportowcow implements OdwiedzajacyKrawedz<String> 
 
     @Override
     public String odwiedz(Trasa trasa) {
-        return budujLinie("t", trasa.id(), historia.liczbaPrzejazdowKrawedzia(trasa), historia.pobierzZapisRejestru(trasa));
+        return budujLinie("t", trasa.id(), historia.liczbaPrzejazdowKrawedzia(trasa),
+                historia.pobierzZapisRejestru(trasa));
     }
 
     @Override
     public String odwiedz(Wyciag wyciag) {
-        return budujLinie("w", wyciag.id(), historia.liczbaPrzejazdowKrawedzia(wyciag), historia.pobierzZapisRejestru(wyciag));
+        return budujLinie("w", wyciag.id(), historia.liczbaPrzejazdowKrawedzia(wyciag),
+                historia.pobierzZapisRejestru(wyciag));
     }
 
 }

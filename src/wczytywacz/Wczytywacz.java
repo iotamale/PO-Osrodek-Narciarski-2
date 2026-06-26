@@ -161,9 +161,9 @@ public class Wczytywacz {
             odstepCzasowy = new Interwal(scanner.nextInt());
         }
 
-        final Sportowiec pierwszySportowiec = stworzPierwszegoSportowca(oznaczenieRodzaju, nastepneId, poziomZaawansowania,
-                wspolczynnikSpontanicznosci, wagaDopasowania, wagaJakosciNawierzchni, czySledzeni, wezly.get(idPoczatkowegoWezla),
-                start, maszynaLosujaca, wspolczynnikZnudzenia, wagaZnudzenia);
+        final Sportowiec pierwszySportowiec = stworzPierwszegoSportowca(oznaczenieRodzaju, nastepneId,
+                poziomZaawansowania, wspolczynnikSpontanicznosci, wagaDopasowania, wagaJakosciNawierzchni, czySledzeni,
+                wezly.get(idPoczatkowegoWezla), start, maszynaLosujaca, wspolczynnikZnudzenia, wagaZnudzenia);
         
         assert pierwszySportowiec != null : "Bledny identyifkator rodzaju sportowca.";
 

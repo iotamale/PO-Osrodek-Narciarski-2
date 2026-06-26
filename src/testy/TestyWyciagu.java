@@ -67,7 +67,8 @@ public class TestyWyciagu {
             faktyczni.add(((DotarcieDoWezla) zdarzenia[i]).sportowiec());
         }
 
-        assertEquals(oczekiwani.size(), faktyczni.size(), "Liczba faktycznych sportowcow nie zgadza się z oczekiwaną");
+        assertEquals(oczekiwani.size(), faktyczni.size(),
+                "Liczba faktycznych sportowcow nie zgadza się z oczekiwaną");
         assertTrue(faktyczni.containsAll(oczekiwani), "Brakuje niektórych oczekiwanych sportowców.");
         assertTrue(oczekiwani.containsAll(faktyczni), "W zdarzeniach są nieoczekiwani sportowcy");
     }

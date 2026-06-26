@@ -87,12 +87,14 @@ public class KreatorMapek {
 
     public void generujMapkeParametrow() throws WyjatekSystemuPlikow {
         final OdwiedzajacyMapkiParametrow odwiedzajacy = new OdwiedzajacyMapkiParametrow();
-        generujMapke(trasa -> trasa.przyjmij(odwiedzajacy), wyciag -> wyciag.przyjmij(odwiedzajacy), generator::dodajKrawedz, NAZWA_PLIK_PARAMETRY);
+        generujMapke(trasa -> trasa.przyjmij(odwiedzajacy), wyciag -> wyciag.przyjmij(odwiedzajacy),
+                generator::dodajKrawedz, NAZWA_PLIK_PARAMETRY);
     }
 
     public void generujMapkeStatystyk() throws WyjatekSystemuPlikow {
         final OdwiedzajacyMapkiStatystyk odwiedzajacy = new OdwiedzajacyMapkiStatystyk();
-        generujMapke(trasa -> trasa.przyjmij(odwiedzajacy), wyciag -> wyciag.przyjmij(odwiedzajacy),  generator::dodajKrawedz, NAZWA_PLIK_STATYSTYKI);
+        generujMapke(trasa -> trasa.przyjmij(odwiedzajacy), wyciag -> wyciag.przyjmij(odwiedzajacy),
+                generator::dodajKrawedz, NAZWA_PLIK_STATYSTYKI);
     }
 
     public void generujMapkeSportowcow() throws WyjatekSystemuPlikow {
@@ -101,7 +103,8 @@ public class KreatorMapek {
                 continue;
             }
             final OdwiedzajacyMapkiSportowcow odwiedzajacy = new OdwiedzajacyMapkiSportowcow(s.historiaPrzejazdow());
-            generujMapke(trasa -> trasa.przyjmij(odwiedzajacy), wyciag -> wyciag.przyjmij(odwiedzajacy), generator::dodajKrawedz, nazwaPlikuSportowca(s));
+            generujMapke(trasa -> trasa.przyjmij(odwiedzajacy), wyciag -> wyciag.przyjmij(odwiedzajacy),
+                    generator::dodajKrawedz, nazwaPlikuSportowca(s));
         }
     }
 

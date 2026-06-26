@@ -75,7 +75,8 @@ public class Symulacja {
         final OdwiedzajacyStatystyk odwiedzajacyStatystyk = new OdwiedzajacyStatystyk();
 
         for (int i = 0; i < osrodek.trasy().size(); i++) {
-            statystyki[i] = new String[]{osrodek.trasy().get(i).toString(), osrodek.trasy().get(i).przyjmij(odwiedzajacyStatystyk)};
+            statystyki[i] = new String[]{osrodek.trasy().get(i).toString(),
+                    osrodek.trasy().get(i).przyjmij(odwiedzajacyStatystyk)};
         }
         for (int i = 0; i < osrodek.wyciagi().size(); i++) {
             statystyki[osrodek.trasy().size() + i] = new String[]{osrodek.wyciagi().get(i).toString(),

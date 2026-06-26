@@ -20,8 +20,10 @@ public class OdwiedzajacyMapkiStatystyk implements OdwiedzajacyKrawedz<List<Stri
     @Override
     public List<String> odwiedz(Wyciag wyciag) {
         final List<String> linie = new ArrayList<>();
-        linie.add(String.format("w%d: kol: %d(śr), %d(maks)", wyciag.id(), wyciag.sredniaDlugoscKolejki(), wyciag.maksDlugoscKolejki()));
-        linie.add(String.format("wjazdy: %d / %d (%d%%)", wyciag.lacznaLiczbaPasazerow(), wyciag.mozliweWjazdy(), wyciag.procentZajetychMiejsc()));
+        linie.add(String.format("w%d: kol: %d(śr), %d(maks)", wyciag.id(), wyciag.sredniaDlugoscKolejki(),
+                wyciag.maksDlugoscKolejki()));
+        linie.add(String.format("wjazdy: %d / %d (%d%%)", wyciag.lacznaLiczbaPasazerow(), wyciag.mozliweWjazdy(),
+                wyciag.procentZajetychMiejsc()));
         return linie;
     }
 

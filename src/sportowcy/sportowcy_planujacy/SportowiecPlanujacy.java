@@ -24,8 +24,8 @@ public abstract class SportowiecPlanujacy extends Sportowiec {
                              Moment momentStartu,
                              MaszynaLosujaca maszynaLosujaca,
                              double wspolczynnikZnudzenia, double wagaZnudzenia) {
-        super(id, poziomZaawansowania, wspolczynnikSpontanicznosci, wagaTrudnosci, wagaNawierzchni, sledzony, wezelStartowy,
-                momentStartu, maszynaLosujaca, wspolczynnikZnudzenia, wagaZnudzenia);
+        super(id, poziomZaawansowania, wspolczynnikSpontanicznosci, wagaTrudnosci, wagaNawierzchni, sledzony,
+                wezelStartowy, momentStartu, maszynaLosujaca, wspolczynnikZnudzenia, wagaZnudzenia);
         planPrzejazdu = new PlanPrzejazdu(this);
     }
 
